@@ -7,7 +7,7 @@ Here you will find a directory for each part. <br><br>
 
 Each part will have their own branch to maximize version control.<br>
 
-The FRONT END and BACK END branches will be deployed separately using Heroku.<br>
+The FrontEnd and BackEnd branches will be deployed separately using Heroku.<br>
 
 <strong>CODE IN BOTH BRANCHES SHALL ALWAYS BE EXECUTABLE.</strong><br>
 
