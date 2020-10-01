@@ -29,8 +29,8 @@ To install, run the command `sudo npm install -g express-generator`<br><br>
 ### 3- Angular framework (v10.1.0 or more): 
 To install, run the command `sudo npm install -g @angular/cli`<br><br>
 
-### 4- MySQL database (v8.0.21 or more): 
-To install, run the command `sudo npm install -g mysql`<br><br>
+### 4- PostgreSQL database (vTBD): 
+To install, run the command `TBD`<br><br>
 
 ## More
 
