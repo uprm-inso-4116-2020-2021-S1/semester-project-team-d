@@ -7,7 +7,7 @@ Here you will find a directory for each part. <br><br>
 
 Each part will have their own branch to maximize version control.<br>
 
-The FRONT END and BACK END branches will be deployed separately using Heroku.<br>
+The FrontEnd and BackEnd branches will be deployed separately using Heroku.<br>
 
 <strong>CODE IN BOTH BRANCHES SHALL ALWAYS BE EXECUTABLE.</strong><br>
 
@@ -29,8 +29,8 @@ To install, run the command `sudo npm install -g express-generator`<br><br>
 ### 3- Angular framework (v10.1.0 or more): 
 To install, run the command `sudo npm install -g @angular/cli`<br><br>
 
-### 4- MySQL database (v8.0.21 or more): 
-To install, run the command `sudo npm install -g mysql`<br><br>
+### 4- PostgreSQL database (vTBD): 
+To install, run the command `TBD`<br><br>
 
 ## More
 
