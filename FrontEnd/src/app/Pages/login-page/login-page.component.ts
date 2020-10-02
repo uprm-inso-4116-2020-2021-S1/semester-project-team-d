@@ -11,5 +11,9 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
   }
+}
 
+function setVisibility() {
+  let p = document.getElementById('test');
+  p.innerHTML = "<p>Login Page Changed.</p>";
 }
