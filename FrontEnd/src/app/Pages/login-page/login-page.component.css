@@ -1,8 +1,4 @@
 
-#page {
-    background-color: beige;
-}
-
 #background-container {
     width: 100%;
     height: 65vh;
@@ -46,7 +42,6 @@
 #title {
     margin: 4%;
 
-    font-family: 'Antic Slab';
     font-weight: normal;
     font-size: 48px;
 
