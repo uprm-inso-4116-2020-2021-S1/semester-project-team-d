@@ -10,10 +10,14 @@ export class LoginPageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    let button = document.getElementById('login-btn');
+    button.addEventListener("click", this.validateCredentials);
   }
-}
 
-function setVisibility() {
-  let p = document.getElementById('test');
-  p.innerHTML = "<p>Login Page Changed.</p>";
-}
+  validateCredentials() {
+    let username = document.getElementById('username')['value'],
+        password = document.getElementById('password')['value'];
+
+    alert(`username is: ${username} & password is: ${password}.`);
+  }
+} 
