@@ -10,6 +10,10 @@ export class RegisterPageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    document.getElementById("register-btn").addEventListener("click", this.sendCredentials);
   }
 
+  sendCredentials() {
+    alert("Hello World!");
+  }
 }
