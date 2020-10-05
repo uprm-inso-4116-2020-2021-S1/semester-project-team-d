@@ -1,0 +1,46 @@
+#nav-bar {
+
+    width: 100%;
+    height: 8vh;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #BE7736;
+}
+
+#logo {
+    width: 15%;
+    height: 8vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+#tabs {
+    width: 100%;
+}
+
+.tab {
+    margin-right: 3%;
+    font-size: 24px;
+
+    position: relative;
+    float: right;
+
+    text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+a {
+    text-decoration: none;
+    color: #341604;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}

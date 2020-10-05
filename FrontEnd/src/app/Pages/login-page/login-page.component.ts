@@ -18,6 +18,13 @@ export class LoginPageComponent implements OnInit {
     let username = document.getElementById('username')['value'],
         password = document.getElementById('password')['value'];
 
-    alert(`username is: ${username} & password is: ${password}.`);
+    const req = new XMLHttpRequest();
+    req.open('GET', 'localhost:3000');
+    req.responseType = 'json';
+    req.send(JSON.stringify(username));
+
+    req.onload = () => {
+      alert(req.response);
+    }
   }
 } 
