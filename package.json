@@ -1,9 +1,9 @@
 {
-  "name": "backend",
+  "name": "front-end",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node ./bin/www",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -21,14 +21,7 @@
     "@angular/router": "~10.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.2",
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "morgan": "~1.9.1",
-    "pg": "^8.4.0"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1001.0",
