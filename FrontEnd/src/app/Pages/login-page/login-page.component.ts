@@ -14,17 +14,29 @@ export class LoginPageComponent implements OnInit {
     button.addEventListener("click", this.validateCredentials);
   }
 
-  validateCredentials() {
-    let username = document.getElementById('username')['value'],
+  async validateCredentials() {
+    // Read input from fields.
+    let credential = document.getElementById('credential')['value'],
         password = document.getElementById('password')['value'];
 
-    const req = new XMLHttpRequest();
-    req.open('GET', 'localhost:3000');
-    req.responseType = 'json';
-    req.send(JSON.stringify(username));
-
-    req.onload = () => {
-      alert(req.response);
+    // Create user object.
+    let user = {
+      credential: credential,
+      password: password
     }
+
+    // Create HTTP request.
+    let post = {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8'
+      }
+    }
+
+    await fetch('http://localhost:3000/login/', post)
+      .then(response => response.json())
+      .catch(err => alert(err))
+      // .then(json => alert(json));
   }
 } 
