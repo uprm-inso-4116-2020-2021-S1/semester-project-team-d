@@ -12,9 +12,6 @@ async function getByEmail(email) {
   return await getUser(email, "email")
 }
 
-// getByUsername("pepitoflow327");
-// getByEmail("pepe.quintana@cfm.farru");
-
 /* GET users listing. */
 router.get('/', async function(req, res, next) {
 
