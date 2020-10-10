@@ -1,12 +1,12 @@
-const { Client } = require('pg');
+const { Pool } = require('pg');
 
 // Database information. Will change with time.
 const database = {
-    host: 'ec2-54-160-120-28.compute-1.amazonaws.com',
-    database: 'dec11iugaj960i',
+    host: 'ec2-52-3-4-232.compute-1.amazonaws.com',
+    database: 'ddji61b18i22cb',
     port: 5432,
-    user: 'wimokaggmsumgs',
-    password: '48bb406c7a6fa598247bc13627b3ead45a357c717a5b9d6ab9bbf0591258631f',
+    user: 'ubrsrymzdzymso',
+    password: '38b7e3fd3d7e19a1c8ab5643674db730f9615415f258f9677448655a80d629f3',
     ssl: true
 };
 
@@ -14,5 +14,16 @@ const database = {
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
 // Initialize the db client and export it as a module.
-let client = new Client(database);
+let client = new Pool(database);
+
+
+// This connect snippet is to test connection whenever the credentials change.
+// client.connect()
+// .then(() => {
+//     console.log("Successfully connected to the Database!");
+// })
+// .catch(err => {
+//     console.log(err);
+// }); 
+
 module.exports = client;

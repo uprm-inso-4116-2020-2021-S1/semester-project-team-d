@@ -1,39 +1,31 @@
 const client = require('./DB-Client')
 
-function getUser(username){
+async function getUser(credential, type){    
 
     // Connect to DB. Returns a Promise object.
     client.connect()
-        .then(() => {
-            console.log("Successfully connected to the Database!");
-        })
         .catch(err => {
             console.log(err);
         }); 
     
-    // Declare variables for result and query object.
-    let result,
-        query = {
-            text: "",
-            values: [username]
-        };
+    // Declare variables for result and query string.
+    let user,
+        query = `SELECT * FROM public.user WHERE ${type} = '${credential}'`;
 
     // Execute Query. Returns a Promise object.
-    client.query(query)
-        .then(user => {
+    return client.query(query)
+        .then(result => {
             // User was found.
-            result = user;
+            user = result.rows[0];
         })
-        .catch(() => {
-            //User does not exist.
-            result = null;
+        .catch(err => {
+            // Some error happened.
+            console.log(`${err}\n`);
         })
         .then(() => {
             // Close connection when done.
-            client.end();
-        })
-    
-    return result;
+            return user;
+        });
 }
 
 module.exports = getUser;
