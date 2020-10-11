@@ -18,8 +18,8 @@ router.get('/', async function(req, res) {
   let json_string = `{"credential":"pepe.quintana@cfm.farru", "password":"carbonfibermusic123"}`
   
   // Request will be a JSON with fields 'credential' && 'password'.
-  let login = JSON.parse(json_string), // req instead of json_string
-  user;
+  let login = JSON.parse(json_string), // req.body instead of json_string
+      user;
 
   // If credential has '@' then getByEmail(credential)
   let credential = login["credential"];

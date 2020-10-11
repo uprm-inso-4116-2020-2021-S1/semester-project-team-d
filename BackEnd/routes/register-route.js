@@ -1,22 +1,23 @@
 var express = require('express');
 var router = express.Router();
+const bodyParser = require('body-parser')
 
 const userDAO  = require('../database/userDAO')
 
 router.post('/', async function (req, res){
 
-    // let user = {
-    //     full_name: "John Travolta Jimenez",
-    //     password: "johnnysins321",
-    //     email: "aaasfaff",
-    //     username: "chravissollt223",
-    //     phone: "7872145565"
-    // };
+    let user = {
+        full_name: "John Travolta",
+        password: "pulpfiction223",
+        email: "jtravolta.sins@brazzers.com",
+        username: "johnnysins223",
+        phone: "6238402796"
+    };
 
-    alert(req.body);
+    console.log(req.body);
 
-    let user = req.body,
-        full_name = user.full_name.split(" ");
+    // let user = req.body,
+    let full_name = user.full_name.split(" ");
 
     // split into first_name and last_name
     let first_name = full_name[0],
@@ -29,6 +30,7 @@ router.post('/', async function (req, res){
 
     // Register user in database.
     let code = await userDAO.registerUser(user);
+    console.log(code)
     res.send(JSON.stringify({exit_code: code}));
 });
 

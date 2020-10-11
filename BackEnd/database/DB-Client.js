@@ -10,20 +10,14 @@ const database = {
     ssl: true
 };
 
-// This is to avoid a 'DEPTH_ZERO_SELF_SIGNED_CERT' error when connecting to DB.
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+function establishConnection() {
+    // This is to avoid a 'DEPTH_ZERO_SELF_SIGNED_CERT' error when connecting to DB.
+    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 
-// Initialize the db client and export it as a module.
-let client = new Pool(database);
+    // Initialize the DB client and return. 
+    return new Pool(database);
+}
 
-
-// This connect snippet is to test connection whenever the credentials change.
-// client.connect()
-// .then(() => {
-//     console.log("Successfully connected to the Database!");
-// })
-// .catch(err => {
-//     console.log(err);
-// }); 
-
-module.exports = client;
+module.exports = {
+    establishConnection: establishConnection
+} 
