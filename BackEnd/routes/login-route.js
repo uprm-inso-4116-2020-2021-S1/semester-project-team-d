@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var session = require('express-session')
 
 const userDAO  = require('../database/userDAO')
 
@@ -46,6 +47,49 @@ router.get('/', async function(req, res) {
     
 });
 
+//sessions package is what we use to determine if the user is logged-in
+router.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
+ }));
+ 
+
+//* Method look good
+// TODO: Verify JSON request variable names & refactor in order to use sql methods from db module
+//client enters info and the form data will be sent to the server
+//will check in our MySQL accounts table to see if the details are correct
+router.post('/auth', (req, res) => {
+  var username = req.body.username;
+  var password = req.body.password;
+  if (username && password) {
+      connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], (error, results, fields) => {
+          if (results.length > 0) {
+              req.session.loggedin = true;
+              req.session.username = username;
+              res.redirect('/home');
+          } else {
+              res.send('Incorrect Username and/or Password!');
+          }
+          res.end();
+      });
+  } else {
+      res.send('Please enter Username and Password!');
+      res.end();
+  }
+ });
+ 
+ //The client logs in successfully
+ router.get('./home', (request, response) => {
+  if (request.session.loggedin) {
+      response.send('Welcome back, ' + request.session.username + '!');
+  } else {
+      response.send('Please login to view this page!');
+  }
+  response.end();
+ });
+
+ 
 // setTimeout(()=> {
 //   console.log(user)
 // }, 3000);
