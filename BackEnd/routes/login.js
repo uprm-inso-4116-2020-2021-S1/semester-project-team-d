@@ -20,13 +20,9 @@ router.post('/', (req, res, next) => {
 
 
 //LOGIN MEHTODS
-//Connect to database
-var connection = mysql.createConnection({
- host     : 'localhost',
- user     : 'root',
- password : '',
- database : 'nodelogin'
-});
+
+// ! Removed sql connection as it's done in a separate module
+
 
 //sessions package is what we use to determine if the user is logged-in
 router.use(session({
@@ -35,10 +31,15 @@ router.use(session({
  saveUninitialized: true
 }));
 
+
+// TODO: Refactor in order to recieve info straight from JSON and not from any html page
 //bodyParser package will extract the form data from our login.html file.
 router.use(bodyParser.urlencoded({extended : true}));
 router.use(bodyParser.json());
 
+
+//* Method look good
+// TODO: Verify JSON request variable names & refactor in order to use sql methods from db module
 //client enters info and the form data will be sent to the server
 //will check in our MySQL accounts table to see if the details are correct
 router.post('/auth', (req, res) => {
