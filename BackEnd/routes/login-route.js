@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var session = require('express-session')
+var parser = require('body-parser')
 
 const userDAO  = require('../database/userDAO')
 
@@ -53,31 +54,42 @@ router.use(session({
   resave: true,
   saveUninitialized: true
  }));
- 
 
-//* Method look good
-// TODO: Verify JSON request variable names & refactor in order to use sql methods from db module
+ router.use(parser.json())
+ 
 //client enters info and the form data will be sent to the server
 //will check in our MySQL accounts table to see if the details are correct
-router.post('/auth', (req, res) => {
-  var username = req.body.username;
-  var password = req.body.password;
+router.post('/', (req, res) => {
+  const data = req.body;
+  var username = data.credential;
+  var password = data.password;
+  let user;
   if (username && password) {
-      connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], (error, results, fields) => {
-          if (results.length > 0) {
-              req.session.loggedin = true;
-              req.session.username = username;
-              res.redirect('/home');
-          } else {
-              res.send('Incorrect Username and/or Password!');
-          }
-          res.end();
-      });
-  } else {
-      res.send('Please enter Username and Password!');
-      res.end();
+    if(username.includes('@')){
+      user = await getByEmail(username)
+      req.session.loggedin = true;
+      req.session.username = username;
+      res.send(200); 
+    }
+    else{
+      user = await getByUsername(username)
+      req.session.loggedin = true;
+      req.session.username = username;
+      res.send(200);
+    }
   }
- });
+  if(!user){
+    res.send(500)
+  }
+
+  // If user[password] == req[password] then res returns 0. (Passwords match)
+  if(user["password"] === login["password"])
+    res.send(200)
+
+  // Else then res returns -2. (Unsuccesful validation)
+  else
+    res.send(500)
+});
  
  //The client logs in successfully
  router.get('./home', (request, response) => {
@@ -89,7 +101,7 @@ router.post('/auth', (req, res) => {
   response.end();
  });
 
- 
+
 // setTimeout(()=> {
 //   console.log(user)
 // }, 3000);
