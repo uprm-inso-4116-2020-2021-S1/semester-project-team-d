@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { take } from 'rxjs/operators';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login-page',
@@ -6,12 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login-page.component.css']
 })
 export class LoginPageComponent implements OnInit {
+  private response_code;
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     let button = document.getElementById('login-btn');
-    button.addEventListener("click", this.validateCredentials);
+    button.addEventListener("click", this.validateCredentials);    
+
+    this.userService.validate().subscribe()
   }
 
   async validateCredentials() {
@@ -25,18 +30,13 @@ export class LoginPageComponent implements OnInit {
       password: password
     }
 
-    // Create HTTP request.
-    let post = {
-      method: 'POST',
-      body: JSON.stringify(user),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8'
-      }
-    }
-
-    await fetch('http://localhost:3000/login/', post)
-      .then(response => response.json())
-      .catch(err => alert(err))
-      // .then(json => alert(json));
+    // Send data with userService
+    this.userService.validate()
+        .subscribe(code => {
+            console.log(code);
+            this.response_code = code
+        }, error => {
+          alert(error);
+        })
   }
 } 
