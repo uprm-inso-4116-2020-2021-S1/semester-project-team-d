@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var session = require('express-session')
 
-const userDAO  = require('../database/userDAO')
+const userDAO  = require('../infrastructure/userDAO')
 
 // Asynchronous wrapper functions.
 async function getByUsername(username) {
@@ -15,11 +15,9 @@ async function getByEmail(email) {
 
 /* GET users listing. */
 router.post('/', async function(req, res) {
-
-  // let json_string = `{"credential":"pepe.quintana@cfm.farru", "password":"carbonfibermusic123"}`
   
   // Request will be a JSON with fields 'credential' && 'password'.
-  let login = req.body, // req.body instead of json_string
+  let login = req.body, 
       user;
 
   // If credential has '@' then getByEmail(credential)
@@ -39,7 +37,7 @@ router.post('/', async function(req, res) {
 
   // If user[password] == req[password] then res returns 0. (Passwords match)
   if(user["password"] === login["password"])
-    res.send({exit_code: 0})
+    res.send({exit_code: 0});
 
   // Else then res returns -2. (Unsuccesful validation)
   else

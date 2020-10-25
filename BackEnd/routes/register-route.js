@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const userDAO  = require('../database/userDAO')
+const userDAO  = require('../infrastructure/userDAO')
 
 router.post('/', async function (req, res){
 

@@ -89,6 +89,6 @@ function generateID() {
 }
 
 module.exports = {
-    getUser: getUser,
-    registerUser: registerUser
+    getUser,
+    registerUser
 };
