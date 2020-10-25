@@ -33,7 +33,7 @@ export class RegisterPageComponent implements OnInit {
           // On observable completion.
           () => this.check(code)
         )
-    });
+    } );
     // End of ngOnInit hook.
   }
 

@@ -14,7 +14,7 @@ import { User } from '../interfaces/User';
 
 export class UserService {
   // Base URL.
-  public url = "http://localhost:3000";
+  public url = "https://book-hub-backend.herokuapp.com";
   
   // HTTP Metadata
   private httpOptions = {
@@ -48,10 +48,10 @@ export class UserService {
   }
 
   // Should accept a User object containing credential and password.
-  validate() {
+  validate(user: User) {
     
     // Should send a POST request with user object as body and httpOptions.
-    return this.http.get<ResponseCode>(this.url + '/login')
+    return this.http.post<ResponseCode>(this.url + '/login', user, this.httpOptions)
       .pipe(catchError(this._handleError)) 
   
   }
