@@ -5,17 +5,29 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
-import { User } from '../interfaces/User';
 import { ResponseCode } from '../interfaces/ResponseCode';
+import { User } from '../interfaces/User';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
-  private url = "http://localhost:3000";
+  // Base URL.
+  public url = "http://localhost:3000";
+  
+  // HTTP Metadata
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+    observe: 'body' as const,
+    responseType: 'json' as const
+  };
 
   constructor(private http: HttpClient) { }
 
+  // handler method copied from official Angular website.
   private _handleError(error: HttpErrorResponse | any) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
@@ -36,41 +48,19 @@ export class UserService {
   }
 
   // Should accept a User object containing credential and password.
-  validate(): Observable<ResponseCode> {
-
-    // Http Metadata
-    const httpOptions = null;
-      
+  validate() {
+    
     // Should send a POST request with user object as body and httpOptions.
     return this.http.get<ResponseCode>(this.url + '/login')
-      .pipe(catchError(this._handleError));
+      .pipe(catchError(this._handleError)) 
+  
   }
 
   // Accepts a user object as a parameter.
-  register(): Observable<ResponseCode> {
+  register(user: User) {
 
-    // HTTP Metadata
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-      observe: 'body' as const,
-      responseType: 'json' as const
-    };
-
-    // Test data to add. Actual data to add would be User param.
-    let body = {
-        full_name: "Hector Jimenez",
-        password: "Hec371",
-        phone: "7329308189",
-        email: "hector.jimenez@upr.edu",
-        username: "hectordael371"
-      }
-
-    return this.http.post<ResponseCode>(this.url + '/register', body, httpOptions)
-      .pipe(
-        catchError(this._handleError)
-      );
-    
+    return this.http.post<ResponseCode>(this.url + '/register', user, this.httpOptions)
+      .pipe(catchError(this._handleError))
+  
   }
 }

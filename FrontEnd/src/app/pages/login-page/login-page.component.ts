@@ -16,7 +16,7 @@ export class LoginPageComponent implements OnInit {
     let button = document.getElementById('login-btn');
     button.addEventListener("click", this.validateCredentials);    
 
-    this.userService.validate().subscribe()
+    this.userService.validate()
   }
 
   async validateCredentials() {
@@ -32,11 +32,6 @@ export class LoginPageComponent implements OnInit {
 
     // Send data with userService
     this.userService.validate()
-        .subscribe(code => {
-            console.log(code);
-            this.response_code = code
-        }, error => {
-          alert(error);
-        })
+
   }
 } 

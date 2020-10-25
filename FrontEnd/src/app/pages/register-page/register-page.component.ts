@@ -1,29 +1,61 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
-  styleUrls: ['./register-page.component.css'],
-  providers: [ UserService ]
+  styleUrls: ['./register-page.component.css']
 })
+
 export class RegisterPageComponent implements OnInit {
-  
+
   constructor(private userService: UserService) { }
 
-  // Http Client Module works if subscribe within ngOnInit() but not what we need.
+  // Injected dependencies work only within ngOnInit, 
+  // thus the reason why event handlers are explicitly defined in this scope.
   ngOnInit(): void {
-    document.getElementById("register-btn").addEventListener("click", this.sendCredentials);
+
+    // Event handler for registration button.
+    document.getElementById("register-btn").addEventListener("click", () => {
+      let user = this.getCredentials(),
+          code = null;
+
+      this.userService.register(user)
+        .subscribe(
+          // Get exit_code from response
+          response => {
+            code = response.exit_code;
+          },
+          
+          // Error handler
+          error => alert(error),
+          
+          // On observable completion.
+          () => this.check(code)
+        )
+    });
+    // End of ngOnInit hook.
   }
 
-  /*
-    This method is used to process user registration.
-      -It gathers the input from the Form,
-      -Sends http request using the UserService,
-      -Finally interprets response.
-  */
-  sendCredentials() {
+  getCredentials() {
+
+    // // Verify Passwords.
+    // let password = document.getElementById('password'),
+    //     password_confirm = document.getElementById('password-confirm');
+
+    // // Password mismatch. 
+    // if (password['value'] !== password_confirm['value']){
+
+    //   // Display error message.
+    //   alert('Error: Passwords must match.');
+      
+    //   // Highlight in red both password fields.
+    //   password.style.borderColor = 'red';
+    //   password_confirm.style.borderColor = 'red';
+
+    //   // Exit method.
+    //   return;
+    // }
 
     // Gather input from Form.
     let user = {
@@ -33,46 +65,21 @@ export class RegisterPageComponent implements OnInit {
       phone: document.getElementById('phone-number')['value'],
       username: document.getElementById('username')['value']
     };
-    
-    // Verify Passwords.
-    let password = document.getElementById('password'),
-        password_confirm = document.getElementById('password-confirm');
 
-    // Password mismatch. 
-    if (password['value'] !== password_confirm['value']){
+    // // Need to check if fields match and have red borders. If they do, execute else block.
+    // if(borders are red) {
+    //   // Remove red border.
+    //   password.style.removeProperty('border-color');
+    //   password_confirm.style.removeProperty('border-color');
+    // }
 
-      // Display error message.
-      alert('Error: Passwords must match.');
-      
-      // Highlight in red both password fields.
-      password.style.borderColor = 'red';
-      password_confirm.style.borderColor = 'red';
+    return user;
+    // End of getCredentials function.
+  }
 
-      // Exit method.
-      return;
-    }
+  check(code: number) {
 
-    // Need to check if fields match and have red borders. If they do, execute else block.
-    else {
-      // Remove red border.
-      password.style.removeProperty('border-color');
-      password_confirm.style.removeProperty('border-color');
-    }
-
-    // Allocate memory for response code.
-    let code = null;
-
-    // Sends http request.
-    this.userService.register()
-      .subscribe(response => {
-        // response should be an object. Property exit_code should store a number.
-        code = response.exit_code;
-
-        // Debugging purposes.
-        alert(JSON.stringify(response))
-      })
-
-    // Handles response.
+    //  Interpret response.
     switch(code) {
       case 0:
           // Registration Successfull. 
@@ -84,8 +91,8 @@ export class RegisterPageComponent implements OnInit {
           alert('Email already registered.')
           break;
       case -2:
-          // Username already exists.
-          alert('Username is not available.')
+          // Username unavailable.
+          alert('Username already exists in database.')
           break;
       case -3:
           // Phone number already exists.
@@ -95,14 +102,11 @@ export class RegisterPageComponent implements OnInit {
           //Some error happened. 
           alert('Something bad happened. Please try again later.')
           break;
+
+      // End of switch statement.
     }
-
-    // End of function.
-    return;
+    // End of check function.
   }
 
-  // Debugging purposes.
-  printMessage() {
-    alert("message");
-  }
+  // End of component class.
 }
