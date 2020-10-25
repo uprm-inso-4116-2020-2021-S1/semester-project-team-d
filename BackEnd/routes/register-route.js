@@ -29,7 +29,7 @@ router.post('/', async function (req, res){
 
     // Register user in database.
     let code = await userDAO.registerUser(user);
-    res.send(JSON.stringify({exit_code: code}));
+    res.send({exit_code: code});
 });
 
 module.exports = router;

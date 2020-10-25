@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 
+var cors = require('cors')
 var createError = require('http-errors');
 var path = require('path');
 var logger = require('morgan');
@@ -20,6 +21,7 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({limit:'1mb'}));
 
+app.use(cors());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
