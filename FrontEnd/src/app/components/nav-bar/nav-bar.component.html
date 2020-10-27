@@ -1,10 +1,13 @@
-<div id="nav-bar"> 
-    <div id="logo">
-        <a routerLink="/landing"><img src="assets/BookHubLogo.png"></a>
+<div id="nav-bar" class="container"> 
+    <div id="logo-container" class="container">
+        <a routerLink="/landing"><img id="logo" src="assets/BookHubLogo.png"></a>
     </div>
-    <div id="tabs">
-        <span class="tab"><a routerLink="/login">Sign In/ </a><a routerLink="/register">Register</a></span>
-        <span class="tab"><a href="">Browse Products</a></span>
-        <span class="tab"><a href="">About Us</a></span>
+    
+    <!-- If onMobile() is true, then display hamburger menu -->
+    <div id="tabs" class="container" *ngIf="this.onMobile(); else elseBlock">
+        <NavTab *ngFor="let tab of tabs" [text]="tab.text" [src]="tab.src"></NavTab>
     </div>
+
+    <!-- If onMobile() is not true, then display regular tab menu -->
+    <ng-template #elseBlock><h1>Hello World</h1></ng-template>
 </div>

@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { UserService } from './services/user.service';
+import { NavTabComponent } from './components/nav-bar/nav-tab/nav-tab.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    NavBarComponent
+    NavBarComponent,
+    NavTabComponent
   ],
   imports: [
     BrowserModule,

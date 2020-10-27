@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 import { ResponseCode } from '../interfaces/ResponseCode';
 import { User } from '../interfaces/User';
@@ -48,7 +48,7 @@ export class UserService {
   }
 
   // Should accept a User object containing credential and password.
-  validate(user: User) {
+  validate(user: User): Observable<ResponseCode> {
     
     // Should send a POST request with user object as body and httpOptions.
     return this.http.post<ResponseCode>(this.url + '/login', user, this.httpOptions)
@@ -57,7 +57,7 @@ export class UserService {
   }
 
   // Accepts a user object as a parameter.
-  register(user: User) {
+  register(user: User): Observable<ResponseCode>{
 
     return this.http.post<ResponseCode>(this.url + '/register', user, this.httpOptions)
       .pipe(catchError(this._handleError))
