@@ -6,7 +6,14 @@
     /* Spacing */
     padding: 0px 5%;
 
+    /* Positioning */
+    z-index: 3;
+    position: fixed;
+
+    /* Aesthetics */
+    font-size: calc(6px + 2vmin);
     background-color: #BE7736;
+    border: 1px solid #341604;
 }
 
 #logo-container {

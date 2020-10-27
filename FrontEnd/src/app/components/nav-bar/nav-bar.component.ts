@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import Tab from '../../classes/Tab'
 
 @Component({
@@ -8,29 +8,44 @@ import Tab from '../../classes/Tab'
 })
 export class NavBarComponent implements OnInit {
 
-  tabs = [
-    new Tab(
-      "About Us",
-      ""
-    ),
-    new Tab(
-      "Browse Products",
-      ""
-    ),
-    new Tab(
-      "My Account",
-      "/login"
-    )
-  ]
+  private tabs: Array<Tab>;
+  private innerWidth: number; 
 
   constructor() { }
 
   ngOnInit(): void {
+    this.tabs = this.createTabs();
+
+    this.innerWidth = window.innerWidth;
   }
 
+  // Live update innerWidth property.
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.innerWidth = window.innerWidth;
+  }
+
+  // Auxilary method to create list of tabs.
+  createTabs(): Array<Tab> {
+    return [
+      new Tab(
+        "About Us",
+        ""
+      ),
+      new Tab(
+        "Browse Products",
+        ""
+      ),
+      new Tab(
+        "Account",
+        "/login"
+      )
+    ]
+  }
+
+  // Criteria to decide how to render NavBar.
   onMobile(): boolean {
-    // Method works but not dynamically. Need live updates.
-    return true;
-    // return document.documentElement.clientWidth > 850;
+    // 850px is the established threshold for desktop/mobile devices.
+    return this.innerWidth < 850;
   }
 }

@@ -9,13 +9,15 @@ import { AppComponent } from './app.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { UserService } from './services/user.service';
 import { NavTabComponent } from './components/nav-bar/nav-tab/nav-tab.component';
+import { HbMenuComponent } from './components/nav-bar/hb-menu/hb-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
     NavBarComponent,
-    NavTabComponent
+    NavTabComponent,
+    HbMenuComponent
   ],
   imports: [
     BrowserModule,
