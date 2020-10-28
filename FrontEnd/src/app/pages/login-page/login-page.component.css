@@ -1,27 +1,27 @@
-
 #background-container {
     width: 100%;
-    height: 65vh;
+    height: 55vh;
 
     position: absolute;
     z-index: 1;
 
     border: 1px solid #341604;
+    box-shadow: 0px 4px 10px -4px rgb(0, 0, 0);
 }
 
 #login-container {
     /* Margins and Padding */
-    margin-right: 3%;
+    margin-right: 5%;
     z-index: 2;
 
     /* Dimensionality */
-    width: 35%;
+    width: 50%;
     height: 50vh;
 
     /* Positioning */
     position: relative;
     float: right;
-    top: 25vh;
+    top: 20vh;
 
     /* Child display */
     display: flex;
@@ -32,17 +32,17 @@
     /* Aesthetics */
     background: rgba(190,119,54, 0.88);
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
-    border-radius: 15px;
+    border-radius: calc(10px + 2vmin);
     border: 1px solid #341604;
 
     overflow: auto;
 }
 
 #title {
-    margin: 4%;
+    margin-top: 15px;
 
     font-weight: normal;
-    font-size: 48px;
+    font-size: calc(35px + 2vmin);
 
     color: #341604;
 
@@ -50,17 +50,13 @@
 }
 
 #login-btn {
-    margin-top: 2%;
-
-    width: 40%;
+    width: fit-content;
     height: 20%;
 
-    min-width: 60px;
-
     background: #341604;
-    border-radius: 15px;
+    border-radius: 12px;
 
-    font-size: large;
+    font-size: calc(10px + 1.5vmin);
     outline: none;
     color: #BE7736;
 }
@@ -68,11 +64,12 @@
 #direction-text {
     margin: 2%;
     padding: 2%;
-    font-size: medium;
+    
+    font-size: calc(10px + 1.5vmin);
 }
 
 .field {
-    margin: 3%;
+    margin: 5%;
 
     width: 100%;
     height: 25%;
@@ -81,7 +78,7 @@
     border-radius: 10px;
 
     font-family: 'Antic Slab';
-    font-size: large;
+    font-size: calc(10px + 1.5vmin);
 }
 
 form {
@@ -92,7 +89,6 @@ form {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 }
 
 img {
@@ -101,15 +97,10 @@ img {
 }
 
 hr {
-    margin-top: -1%;
-    margin-bottom: 2%;
-
-    height: 2px;
     width: 75%;
 
-    border: 1px solid #341604;
+    border: 2px solid #341604;
     background-color: #341604;
-
 }
 
 input {
@@ -120,31 +111,9 @@ a {
     color: beige;
 }
 
-/* These rules apply only to mobile devices */
-@media only screen and (min-width: 360px) and (max-width: 480px){
-    #background-container {
-        height: 55vh;
-    }
-
+/* These rules apply only to non-mobile devices */
+@media only screen and (min-width: 850px){
     #login-container {
-        top: 15vh;
-        margin-right: 5%;
-        width: 50%;
+        width: 35%;
     }
-
-    #title {
-        font-size: 38px;
-    }
-
-    #login-btn {
-        font-size: smaller;
-        border-radius: 13px;
-    }
-
-    .field {
-        margin: 5%;
-        height: 22%;
-        font-size: medium;
-    }
-
 }
