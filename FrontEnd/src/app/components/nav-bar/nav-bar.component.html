@@ -11,6 +11,16 @@
         </div>
 
         <!-- If onMobile() is true, then display hamburger menu -->
-        <ng-template #elseBlock><HbMenu></HbMenu></ng-template>
+        <ng-template #elseBlock>
+            <div id="hb-menu" class="container">
+                <img id="menu-icon" src="assets/NavBar/hb_menu_icon.png" (click)="toggleOptions()">
+            </div>
+        </ng-template>
+
+        
     </div>
+</div>
+<!-- Hamburger menu tabs -->
+<div id="menu-options" class="container">
+    <NavTab (click)="toggleOptions()" *ngFor="let tab of tabs" [text]="tab.text" [src]="tab.src"></NavTab>
 </div>

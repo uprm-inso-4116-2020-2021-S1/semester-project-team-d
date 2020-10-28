@@ -7,7 +7,7 @@
     padding: 0px 5%;
 
     /* Positioning */
-    z-index: 3;
+    z-index: 4;
     position: fixed;
 
     /* Aesthetics */
@@ -30,6 +30,31 @@
     width: 75%;
     height: 100%;
     justify-content: flex-end;
+}
+
+#hb-menu {
+    width: auto;
+    height: 100%;
+}
+
+#menu-icon {
+    max-width: 75%;
+    max-height: 75%;
+}
+
+#menu-options {
+    width: 100%;
+    height: calc(100% - 7vh);       /* viewport height - nav bar height */
+
+    padding-top: 7vh;
+    background-color: #BE7736;
+    opacity: 0.96;
+
+    position: absolute;
+    display: none;
+
+    z-index: 3;
+    flex-direction: column;
 }
 
 .container {
