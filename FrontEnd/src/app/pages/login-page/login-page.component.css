@@ -116,4 +116,8 @@ a {
     #login-container {
         width: 35%;
     }
+
+    .field {
+        margin: 3%;
+    }
 }
