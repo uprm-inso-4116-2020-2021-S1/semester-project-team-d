@@ -7,9 +7,15 @@ var createError = require('http-errors');
 var path = require('path');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var userLoginRouter = require('./routes/login-route');
-var userRegistrationRouter = require('./routes/register-route');
+var landingPageRouter = require('./routes/landing-route');
+var loginPageRouter = require('./routes/login-route');
+var registerPageRouter = require('./routes/register-route');
+
+var homePageRouter = require('./routes/home-route');
+var browseBooksRouter = require('./routes/browse-books-route');
+var booksRouter = require('./routes/book-route');
+
+var accountPageRouter = require('./routes/account-route');
 
 var app = express();
 
@@ -25,9 +31,15 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/login', userLoginRouter);
-app.use('/register', userRegistrationRouter);
+app.use('/', landingPageRouter);
+app.use('/login', loginPageRouter);
+app.use('/register', registerPageRouter);
+
+app.use('/home', homePageRouter);
+app.use('/browse', browseBooksRouter);
+app.use('/book', booksRouter);
+
+app.use('/account', accountPageRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

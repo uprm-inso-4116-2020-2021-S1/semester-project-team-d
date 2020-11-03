@@ -1,4 +1,5 @@
 const DB_Client = require('./DB-Client')
+const { getBook } = require('./bookDAO')
 
 async function getUser(credential, type){    
     let conn = DB_Client.establishConnection();
@@ -83,6 +84,101 @@ async function registerUser(user) {
         })
 }
 
+async function updateInfo() {
+    // Establish DB connection.
+    let conn = DB_Client.establishConnection();
+
+    // Declare variables and query string.
+    let query = "";
+
+    // Execute query and return result.
+    return conn.query(query)
+        .then(result => {
+
+        })
+        .catch(error => {
+
+        })
+        .then(() => {
+            // Close connection and return result.
+            conn.end();
+            // return result;
+        });
+}
+
+// Fetch list of BookIDs from the 'listings' property of userID
+// Fetch every book in that list with getBook() from bookDAO
+// Return list of books.
+async function getListings(userID) {
+    // Establish DB connection.
+    let conn = DB_Client.establishConnection();
+
+    // Declare variables and query string.
+    let query = "";
+
+    // Execute query and return result.
+    return conn.query(query)
+        .then(result => {
+
+        })
+        .catch(error => {
+
+        })
+        .then(() => {
+            // Close connection and return result.
+            conn.end();
+            // return result;
+        });
+}
+
+// Fetch list of BookIDs from the 'holdings' property of userID
+// Fetch every book in that list with getBook() from bookDAO
+// Return list of books.
+async function getHoldings(userID) {
+    // Establish DB connection.
+    let conn = DB_Client.establishConnection();
+
+    // Declare variables and query string.
+    let query = "";
+
+    // Execute query and return result.
+    return conn.query(query)
+        .then(result => {
+
+        })
+        .catch(error => {
+
+        })
+        .then(() => {
+            // Close connection and return result.
+            conn.end();
+            // return result;
+        });
+}
+
+// Add bookID to the list in 'listings' property of userID
+async function addBooktoListings(bookID, userID) {
+    // Establish DB connection.
+    let conn = DB_Client.establishConnection();
+
+    // Declare variables and query string.
+    let query = "";
+
+    // Execute query and return result.
+    return conn.query(query)
+        .then(result => {
+
+        })
+        .catch(error => {
+
+        })
+        .then(() => {
+            // Close connection and return result.
+            conn.end();
+            // return result;
+        });
+}
+
 function generateID() {
     // Generate a random number between [0, 1000]
     return(Math.floor((Math.random() * 1000) + 1));
@@ -90,5 +186,9 @@ function generateID() {
 
 module.exports = {
     getUser,
-    registerUser
+    registerUser,
+    updateInfo,
+    getListings,
+    getHoldings,
+    addBooktoListings
 };

@@ -2,15 +2,15 @@ var express = require('express');
 var router = express.Router();
 var session = require('express-session')
 
-const userDAO  = require('../infrastructure/userDAO')
+const { getUser }  = require('../infrastructure/userDAO')
 
 // Asynchronous wrapper functions.
-async function getByUsername(username) {
-  return await userDAO.getUser(username, "username")
+function getByUsername(username) {
+  return getUser(username, "username")
 }
 
-async function getByEmail(email) {
-  return await userDAO.getUser(email, "email")
+function getByEmail(email) {
+  return getUser(email, "email")
 }
 
 /* GET users listing. */

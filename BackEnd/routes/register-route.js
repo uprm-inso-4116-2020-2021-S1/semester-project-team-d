@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const userDAO  = require('../infrastructure/userDAO')
+const { registerUser }  = require('../infrastructure/userDAO')
 
 router.post('/', async function (req, res){
 
@@ -28,7 +28,7 @@ router.post('/', async function (req, res){
     user.last_name = last_name;
 
     // Register user in database.
-    let code = await userDAO.registerUser(user);
+    let code = await registerUser(user);
     res.send({exit_code: code});
 });
 
