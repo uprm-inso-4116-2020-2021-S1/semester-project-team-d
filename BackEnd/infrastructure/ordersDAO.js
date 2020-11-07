@@ -5,7 +5,7 @@ async function getOrders(userID){
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let orders, query = `SELECT * FROM public.order WHERE orderID = '${userID}'`;
+    let orders, query = `SELECT * FROM public.order WHERE orderID = ${userID}`;
 
     // Execute query and return result.
     return conn.query(query)

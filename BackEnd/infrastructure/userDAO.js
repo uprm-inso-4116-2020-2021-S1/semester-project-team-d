@@ -109,24 +109,35 @@ async function updateInfo() {
 // Fetch list of BookIDs from the 'listings' property of userID
 // Fetch every book in that list with getBook() from bookDAO
 // Return list of books.
-async function getListings(userID) {
+/* 
+    NOTE: WILL GIVE ERROR AS LONG AS LISTINGS ARE NULL. 
+    TEST ONCE VALUES ARE INSERTED INTO LISTINGS
+*/
+async function getListings() {
     // Establish DB connection.
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let query = "";
-
+    let values, listings, query = `SELECT listings FROM public.user`;
+    
     // Execute query and return result.
     return conn.query(query)
         .then(result => {
-
+            values = result.rows
         })
         .catch(error => {
-
+            console.log(error);
         })
         .then(() => {
             // Close connection and return result.
             conn.end();
+            
+            for(var i = 0; i < values.length; i++) {
+                var obj = values[i];
+                listings = getBook(obj.listings.title);
+            }           
+            
+            return listings;
             // return result;
         });
 }
