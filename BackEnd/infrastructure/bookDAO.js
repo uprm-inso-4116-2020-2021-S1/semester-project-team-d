@@ -132,19 +132,20 @@ async function getByGenre(genre){
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let query = "";
+    let books,query = `SELECT * FROM public.book WHERE genre = '${genre}'`;
 
     // Execute query and return result.
     return conn.query(query)
         .then(result => {
-
+            books = result
         })
         .catch(error => {
-
+            console.log(err);
         })
         .then(() => {
             // Close connection and return result.
             conn.end();
+            return books
             // return result;
         });
 }
