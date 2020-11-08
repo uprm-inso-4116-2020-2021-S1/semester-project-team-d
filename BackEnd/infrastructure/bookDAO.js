@@ -211,10 +211,6 @@ async function getByFaculty(faculty){
         });
 }
 
-const p = async (myFunc) => {
-    const a = await myFunc
-    console.log(a);
-}
 
 p(getByDepartment())
 
