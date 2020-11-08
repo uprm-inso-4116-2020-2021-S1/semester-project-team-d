@@ -123,20 +123,24 @@ async function getListings() {
     // Execute query and return result.
     return conn.query(query)
         .then(result => {
+            
+            //put query results in a list
             values = result.rows
         })
         .catch(error => {
             console.log(error);
         })
         .then(() => {
-            // Close connection and return result.
+            // Close connection 
             conn.end();
             
+            //Iterate through list and find books accordingly, put result in list
             for(var i = 0; i < values.length; i++) {
                 var obj = values[i];
-                listings = getBook(obj.listings.title);
+                listings.push(getBook(obj.listings.title));
             }           
             
+            //return list
             return listings;
             // return result;
         });

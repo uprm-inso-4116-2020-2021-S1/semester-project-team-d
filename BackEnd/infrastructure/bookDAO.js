@@ -1,3 +1,4 @@
+const { log } = require('debug');
 const DB_Client = require('./DB-Client')
 
 /*
@@ -155,20 +156,29 @@ async function getByDepartment(dept){
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let query = "";
+    let listing, depList, query = `SELECT * FROM public.academic WHERE department = '${dept}'`;
 
     // Execute query and return result.
     return conn.query(query)
         .then(result => {
-
+            //put query results in a list
+            depList = result.rows
         })
         .catch(error => {
-
+            console.log(error);
         })
         .then(() => {
-            // Close connection and return result.
+            // Close connection.
             conn.end();
-            // return result;
+
+            //Iterate through list and find books accordingly, put result in list
+            for(var i = 0; i < depList.length; i++) {
+                var obj = depList[i];
+                listing.push(getBook(obj.title, 'title'));
+            }
+
+            //return depList
+            return listing
         });
 }
 
@@ -177,22 +187,36 @@ async function getByFaculty(faculty){
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let query = "";
+    let listing, facList, query = `SELECT * FROM public.academic WHERE faculty = '${faculty}'`;
 
     // Execute query and return result.
     return conn.query(query)
         .then(result => {
-
+            facList = result.rows
         })
         .catch(error => {
-
+            console.log(error);
         })
         .then(() => {
             // Close connection and return result.
             conn.end();
-            // return result;
+            
+            for(var i = 0; i < facList.length; i++) {
+                var obj = facList[i];
+                listing.push(getBook(obj.title, 'title'));
+            }
+            return listing
+            // return facList
+
         });
 }
+
+const p = async (myFunc) => {
+    const a = await myFunc
+    console.log(a);
+}
+
+p(getByDepartment())
 
 // To use elsewhere (TBD)
 async function getBook(target, criteria){    
@@ -232,7 +256,7 @@ async function addBook(book) {
             "password",
             "email",
             "username",
-            "phone") VALUES (
+            "phone") depList (
             '${generateID()}',
             '${user.first_name}',
             '${user.last_name}',
