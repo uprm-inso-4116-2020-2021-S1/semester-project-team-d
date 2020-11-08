@@ -151,6 +151,7 @@ async function getByGenre(genre){
         });
 }
 
+
 async function getByDepartment(dept){
     // Establish DB connection.
     let conn = DB_Client.establishConnection();
