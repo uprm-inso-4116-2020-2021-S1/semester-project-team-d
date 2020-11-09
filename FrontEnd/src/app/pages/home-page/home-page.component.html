@@ -8,10 +8,13 @@
     </section>    
     
     <section id="carousels">
-        <Carousel 
-          *ngFor="let type of carousels"
-            [title]="type">
-        </Carousel>
+        <div *ngFor="let carousel of carousels">
+            <a [routerLink]="['/browse', carousel.link]">See All</a>
+            
+            <Carousel 
+                [title]="carousel.type">
+            </Carousel>
+        </div>
     </section>
     
     <Footer id="footer"></Footer>

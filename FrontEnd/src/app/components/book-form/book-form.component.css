@@ -23,18 +23,6 @@ form {
     display: none;
 }
 
-#publish-btn {
-    padding: calc(2px + 1vmin);
-    width: fit-content;
-
-    background: #341604;
-    border-radius: calc(2px + 1.5vmin);
-
-    font-size: calc(8px + 1.5vmin);
-    outline: none;
-    color: #BE7736;
-}
-
 .field {
     margin: 5px;
 

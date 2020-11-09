@@ -14,6 +14,8 @@ import { CarouselComponent } from './components/carousel/carousel.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { BookFormComponent } from './components/book-form/book-form.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AccountPageComponent } from './pages/account-page/account-page.component';
+import { BrowseBooksPageComponent } from './pages/browse-books-page/browse-books-page.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { FooterComponent } from './components/footer/footer.component';
     CarouselComponent,
     HomePageComponent,
     BookFormComponent,
-    FooterComponent
+    FooterComponent,
+    AccountPageComponent,
+    BrowseBooksPageComponent
   ],
   imports: [
     BrowserModule,

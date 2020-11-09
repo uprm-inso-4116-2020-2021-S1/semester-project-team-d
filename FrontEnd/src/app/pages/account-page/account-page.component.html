@@ -1,0 +1,33 @@
+<div class="page">
+
+    <section id="update-info" class="container">
+        <div id="image-container">
+            <img id="background-image" src="assets/AccountBG.jpg">
+        </div>
+
+        <div id="form-container" class="container">
+            <h2 id="title">Update Account</h2>
+            <form class="container">
+                <input type="text" placeholder="Full Name" class="field">
+                <input type="email" placeholder="Email" class="field">
+                <input type="password" placeholder="Password" class="field">
+                <input type="password" placeholder="Confirm Password" class="field">
+                <input type="phone" placeholder="Phone" class="field">
+                <input type="text" placeholder="Address" class="field">
+                <button class="button">Update Info</button>
+            </form>
+        </div>
+    </section>    
+    
+    <section id="post-book" class="container">
+        <button class="button" id="post-btn" (click)=displayBookForm()>Post a New Listing!</button>
+        <BookForm id="book-form"></BookForm>
+    </section>
+
+    <section id="carousels">
+        <!-- To pass items, [items]="item.value" -->
+        <Carousel *ngFor="let item of items | keyvalue" [title]="item.key" class="carousel"></Carousel>
+    </section>
+
+    <Footer></Footer>
+</div>

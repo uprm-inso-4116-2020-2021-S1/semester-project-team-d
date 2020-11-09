@@ -50,11 +50,12 @@
     background-color: #BE7736;
     opacity: 0.96;
 
-    position: absolute;
+    position: fixed;
     display: none;
 
     z-index: 3;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .container {

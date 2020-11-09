@@ -4,6 +4,8 @@ import { LandingPageComponent } from './pages/landing-page/landing-page.componen
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { AccountPageComponent } from './pages/account-page/account-page.component';
+import { BrowseBooksPageComponent } from './pages/browse-books-page/browse-books-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -11,6 +13,8 @@ const routes: Routes = [
   { path: '', component: LandingPageComponent },
 
   { path: 'home', component: HomePageComponent },
+  { path: 'account', component: AccountPageComponent },
+  { path: 'browse/:type', component: BrowseBooksPageComponent},
 
   { path: 'landing', redirectTo: '', pathMatch: 'full'}
 ];
@@ -25,5 +29,7 @@ export const routingComponents = [
   LoginPageComponent,
   RegisterPageComponent,
   LandingPageComponent,
-  HomePageComponent
+  HomePageComponent,
+  AccountPageComponent,
+  BrowseBooksPageComponent
 ]

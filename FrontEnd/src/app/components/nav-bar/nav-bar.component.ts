@@ -42,8 +42,12 @@ export class NavBarComponent implements OnInit {
         "/home"
       ),
       new Tab(
-        "Account",
+        "Login/Register",
         "/login"
+      ),
+      new Tab(
+        "MyAccount",
+        "/account"
       )
     ]
   }

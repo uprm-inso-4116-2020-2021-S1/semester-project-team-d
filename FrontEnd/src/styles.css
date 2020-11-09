@@ -19,3 +19,21 @@ body {
 
     padding-top: 7vh;   /*NavBar height*/
 }
+
+.button {
+    padding: calc(1px + 1vmin);
+    width: fit-content;
+
+    background: #341604;
+    border-radius: calc(2px + 1.5vmin);
+
+    font-size: calc(8px + 1.5vmin);
+    outline: none;
+    color: #BE7736;
+}
+
+/* 
+    Light Brown: #BE7736;
+    Faded Light Brown: #BE773690;
+    Dark Brown: #341604; 
+*/

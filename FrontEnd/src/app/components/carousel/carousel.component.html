@@ -1,10 +1,13 @@
-<h2 class="carousel-header">{{title}}</h2>
+<div id="container">
+    <h2 class="carousel-header">{{title}}</h2>
 
-<div id="carousel">
-    <BookCard class="card"
-        *ngFor="let book of books" 
-            [cover]="book.cover" 
-            [title]="book.title" 
-            [author]="book.author">
-    </BookCard>
+    <div id="carousel">
+        <BookCard class="card"
+            *ngFor="let book of books" 
+                [cover]="book.cover" 
+                [title]="book.title" 
+                [author]="book.author">
+        </BookCard>
+    </div>
 </div>
+

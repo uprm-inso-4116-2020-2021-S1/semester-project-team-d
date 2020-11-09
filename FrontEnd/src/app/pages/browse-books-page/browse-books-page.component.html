@@ -1,0 +1,11 @@
+<div class="page">
+    <h2 id="title">By {{capitalize(type)}}</h2>
+
+    <Carousel
+        *ngFor="let item of items | keyvalue"
+        [title]="item.key"
+        class="carousel">
+    </Carousel>
+
+    <Footer></Footer>
+</div>
