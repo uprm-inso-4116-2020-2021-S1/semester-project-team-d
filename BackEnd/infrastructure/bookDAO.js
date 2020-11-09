@@ -66,12 +66,12 @@ async function getFromRandomGenres(){
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let books,query = "SELECT * FROM public.book OFFSET floor(random() * (SELECT COUNT(*) FROM public.book)) LIMIT 1";
+    let genreList, books,query = "SELECT genre FROM public.book OFFSET floor(random() * (SELECT COUNT(*) FROM public.book))";
 
     // Execute query and return result.
     return conn.query(query)
         .then(result => {
-            books = result;
+            genreList = result.rows;
         })
         .catch(error => {
             console.log(err);
@@ -79,7 +79,12 @@ async function getFromRandomGenres(){
         .then(() => {
             // Close connection and return result.
             conn.end();
-            return books;
+
+            for(var i = 0; i < genreList.length; i++) {
+                // var obj = depList[i];
+                books.push(getByGenre(genreList[i].title, 'title'));
+            }
+            return genreList;
             // return result;
         });
 }
@@ -89,19 +94,25 @@ async function getFromRandomFaculties(){
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let query = "";
+    let facList, faculties, query = "SELECT faculty FROM public.academic OFFSET floor(random() * (SELECT COUNT(*) FROM public.academic))";
 
     // Execute query and return result.
     return conn.query(query)
         .then(result => {
-
+            facList = result.rows;
         })
         .catch(error => {
-
+            console.log(err);
         })
         .then(() => {
             // Close connection and return result.
             conn.end();
+
+            for(var i = 0; i < facList.length; i++) {
+                // var obj = depList[i];
+                faculties.push(getByFaculty(facList[i].title, 'title'));
+            }
+            return facList;
             // return result;
         });
 }
@@ -111,19 +122,26 @@ async function getFromRandomDepartments(){
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let query = "";
+    let deptList, dept, query = "SELECT department FROM public.academic OFFSET floor(random() * (SELECT COUNT(*) FROM public.academic))";
 
     // Execute query and return result.
     return conn.query(query)
         .then(result => {
-
+            deptList = result.rows;
         })
         .catch(error => {
-
+            console.log(err);
         })
         .then(() => {
             // Close connection and return result.
             conn.end();
+
+            for(var i = 0; i < deptList.length; i++) {
+                // var obj = depList[i];
+                dept.push(getByDepartment(deptList[i].title, 'title'));
+            }
+
+            return deptList;
             // return result;
         });
 }
@@ -213,8 +231,6 @@ async function getByFaculty(faculty){
         });
 }
 
-
-p(getByDepartment())
 
 // To use elsewhere (TBD)
 async function getBook(target, criteria){    
@@ -323,3 +339,5 @@ const p = async (myFunc) => {
     const a = await myFunc
     console.log(a);
 }
+
+p(getByDepartment())
