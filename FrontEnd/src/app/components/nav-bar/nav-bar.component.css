@@ -44,7 +44,7 @@
 
 #menu-options {
     width: 100%;
-    height: calc(100% - 7vh);       /* viewport height - nav bar height */
+    height: 100vh;      /* viewport height - nav bar height */
 
     padding-top: 7vh;
     background-color: #BE7736;

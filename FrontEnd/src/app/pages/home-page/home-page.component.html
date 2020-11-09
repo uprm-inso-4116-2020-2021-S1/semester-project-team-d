@@ -1,0 +1,19 @@
+<div id="page" class="page">
+    <section id="search">
+        <img id="background" src="assets/LoginBG1.jpg">
+    </section>
+    
+    <section id="post-book" class="container">
+        <BookForm id="book-form"></BookForm>
+    </section>    
+    
+    <section id="carousels">
+        <Carousel 
+          *ngFor="let type of carousels"
+            [title]="type">
+        </Carousel>
+    </section>
+    
+    <Footer id="footer"></Footer>
+</div>
+

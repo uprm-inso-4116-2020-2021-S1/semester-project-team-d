@@ -1,15 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
-  selector: 'app-register-page',
+  selector: 'RegisterPage',
   templateUrl: './register-page.component.html',
   styleUrls: ['./register-page.component.css']
 })
 
 export class RegisterPageComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   // Injected dependencies work only within ngOnInit, 
   // thus the reason why event handlers are explicitly defined in this scope.
@@ -84,7 +85,7 @@ export class RegisterPageComponent implements OnInit {
       case 0:
           // Registration Successfull. 
           alert('Thank you for registering!');
-          // Take to login page.
+          this.router.navigate(["/home"])
           break;
       case -1:
           // Email already exists. 

@@ -1,0 +1,31 @@
+<div id="book-form" class="container">
+    <h2 id="form-title">Post a Book!</h2>
+
+    <form class="container">
+        <input type="text" id="title" placeholder="Book Title" class="field">
+        <input type="text" id="author" placeholder="Book Author" class="field">
+        <input type="file" accept="image/*">
+        
+        <span>
+            <input type="radio" name="option" id="academic" value="academic">
+            <label for="academic">Academic</label>
+
+            <input type="radio" name="option" id="recreational" value="recreational">
+            <label for="recreational">Recreational</label>
+        </span>
+
+        <div id="acad-options" class="container">
+            <input type="text" placeholder="Faculty" class="field">
+            <input type="text" placeholder="Department" class="field">
+            <input type="text" placeholder="CourseID" class="field">
+            <input type="number" placeholder="Edition" class="field">
+        </div>
+        
+        <div id="rec-options" class="container">
+            <input type="text" placeholder="Genre" class="field">
+            <input type="number" placeholder="Volume" class="field">
+        </div>
+
+        <button id="publish-btn">Publish</button>
+    </form>
+</div>

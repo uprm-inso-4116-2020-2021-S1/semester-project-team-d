@@ -3,11 +3,14 @@ import { Routes, RouterModule } from '@angular/router';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
   { path: '', component: LandingPageComponent },
+
+  { path: 'home', component: HomePageComponent },
 
   { path: 'landing', redirectTo: '', pathMatch: 'full'}
 ];
@@ -21,5 +24,6 @@ export class AppRoutingModule { }
 export const routingComponents = [
   LoginPageComponent,
   RegisterPageComponent,
-  LandingPageComponent
+  LandingPageComponent,
+  HomePageComponent
 ]

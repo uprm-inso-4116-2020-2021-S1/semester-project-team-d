@@ -5,8 +5,8 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { ResponseCode } from '../interfaces/ResponseCode';
-import { User } from '../interfaces/User';
+import { ResponseCode } from '../../interfaces/ResponseCode';
+import { User } from '../../interfaces/User';
 
 @Injectable({
   providedIn: 'root'

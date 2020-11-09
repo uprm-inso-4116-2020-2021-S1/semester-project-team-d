@@ -1,0 +1,25 @@
+#carousel {
+    width: 90%;
+    height: fit-content;
+
+    background-color: #BE773690;
+    border: 2px solid #341604;
+    border-radius: calc(2px + 2vmin);
+    box-shadow: 0px 6px 8px -4px black;
+
+    display: flex;
+    overflow-x: scroll;
+
+    position: relative;
+    left: 5%;
+}
+
+.carousel-header {
+    color: #341604;
+    position: relative;
+    left: 5%;
+}
+
+.card {
+    margin: 15px 8px;
+}

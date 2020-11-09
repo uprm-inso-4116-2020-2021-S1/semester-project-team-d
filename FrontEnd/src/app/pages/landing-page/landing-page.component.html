@@ -1,25 +1,27 @@
 <div class="page">
-    <div id="background-container">
+    <section id="introduction" class="container">
+        <div id="text-container" class="container">
+
+            <span id="title">The Book Hub</span>
+            <hr>
+        
+            <p id="info-text"> 
+                BookHub is an online platform designed especifically for students 
+                getting through college and recreational readers alike. We know how 
+                expensive college is; why spend thousands of dollars on textbooks you’re 
+                probably going to use for a couple of months and then put them away? 
+                Wouldn’t you rather rent them for the time needed and then share them forward? 
+                We certainly would. That’s why we bring you: <strong>The Book Hub!</strong>
+            </p>
+        </div>
+        <a routerLink="home"><button id="browse-btn">Browse Books</button></a>
+    </section>
     
-        <img id="img-bg" src="assets/LandingBG.jpg" alt="Image unavailable"/>
-    
-    </div>
-    
-    
-    <div id="text-container">
-    
-        <span id="title">The Book Hub</span>
-        <hr>
-    
-        <p id="info-text"> 
-            BookHub is an online platform designed especifically for students 
-            getting through college and recreational readers alike. We know how 
-            expensive college is; why spend thousands of dollars on textbooks you’re 
-            probably going to use for a couple of months and then put them away? 
-            Wouldn’t you rather rent them for the time needed and then share them forward? 
-            We certainly would. That’s why we bring you: The Book Hub!
-        </p>
-    
-        <span id="direction-text">Interested? Start browsing the hub <a href="">here</a>.</span>
-    </div>
+    <section id="carousels">
+        <Carousel [title]="titles[0]"></Carousel>
+
+        <Carousel [title]="titles[1]"></Carousel>
+    </section>
+
+    <Footer></Footer>
 </div>

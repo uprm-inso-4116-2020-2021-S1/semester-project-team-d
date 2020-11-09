@@ -1,28 +1,22 @@
-#background-container {
-    width: 100%;
-    height: 55vh;
-
-    position: absolute;
-    z-index: 1;
-}
-
-#text-container {
-    /* Margins and Padding */
-    z-index: 2;
-
-    /* Dimensionality */
-    width: 70%;
-    height: 50vh;
-    
-    /* Positioning */
-    position: relative;
-    top: 20vh;
-    left: 15%;
-
-    /* Child display */
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+}
+
+#introduction {
+    width: 100%;
+    height: 100vh;
+
+    background-color: #BE773690;
+}
+
+#text-container {
+    /* Dimensionality */
+    width: 70%;
+    height: 55vh;
+
     text-align: center;
 
     /* Aesthetics */
@@ -35,35 +29,12 @@
 }
 
 #title {
-    margin-top: 15px;
-
     font-weight: normal;
     font-size: calc(35px + 2vmin);
 
     color: #341604;
 
-    text-shadow: 1px 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-#info-text {
-    margin: 0;
-    width: 75%;
-    font-size: calc(12px + 1.5vmin);
-    /* font-size: 20px; */
-
-}
-
-#direction-text {
-    margin: 2%;
-    padding: 2%;
-
-    font-size: calc(10px + 1.5vmin);
-}
-
-
-#img-bg {
-    width: 100%;
-    height: 100%;
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
 }
 
 hr {
@@ -73,20 +44,38 @@ hr {
     background-color: #341604;
 }
 
-a {
-    color: beige;
+#info-text {
+    margin: 0;
+    width: 75%;
+    font-size: calc(12px + 1.5vmin);
+}
+
+#browse-btn {
+    margin-top: 4vmin;
+
+    padding: calc(4px + 1vmin);
+    width: fit-content;
+
+    background: #341604;
+    border-radius: calc(2px + 2vmin);
+
+
+    font-size: calc(10px + 1.5vmin);
+    outline: none;
+    color: #BE7736;
+}
+
+#carousels {
+    width: 100%;
+    height: 100vh;
 }
 
 /* Desktop Rules. */
 @media only screen and (min-width: 850px) {
 
-    #background-container {
-        height: 65vh;
-    }
-
     #text-container {
-        width: 50%;
-        height: 55vh;
+        width: 40%;
+        height: 50vh;
 
         left: 25%;
     }

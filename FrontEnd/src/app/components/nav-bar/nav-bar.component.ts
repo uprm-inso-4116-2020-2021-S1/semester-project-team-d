@@ -39,7 +39,7 @@ export class NavBarComponent implements OnInit {
       ),
       new Tab(
         "Browse Products",
-        ""
+        "/home"
       ),
       new Tab(
         "Account",
