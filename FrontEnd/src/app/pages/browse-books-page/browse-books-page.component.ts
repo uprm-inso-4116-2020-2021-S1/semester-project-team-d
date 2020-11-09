@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { BookService } from 'src/app/services/book/book.service';
 
 @Component({
   selector: 'BrowseBooksPage',
@@ -18,7 +19,7 @@ export class BrowseBooksPageComponent implements OnInit, OnDestroy {
     Action: []
   };
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private bookService: BookService) { }
 
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(params => this.type = params['type'])

@@ -18,9 +18,10 @@
     </section>
     
     <section id="carousels">
-        <Carousel [title]="titles[0]"></Carousel>
-
-        <Carousel [title]="titles[1]"></Carousel>
+        <Carousel 
+            *ngFor="let carousel of carousels | keyvalue" 
+            [title]="carousel.key">
+        </Carousel>
     </section>
 
     <Footer></Footer>
