@@ -39,7 +39,7 @@ async function registerUser(user) {
             "email",
             "username",
             "phone") VALUES (
-            '${generateID()}',
+            '${user.userID}',
             '${user.first_name}',
             '${user.last_name}',
             '${user.password}',
@@ -177,11 +177,6 @@ async function addBooktoListings(bookID, userID) {
             conn.end();
             // return result;
         });
-}
-
-function generateID() {
-    // Generate a random number between [0, 1000]
-    return(Math.floor((Math.random() * 1000) + 1));
 }
 
 module.exports = {
