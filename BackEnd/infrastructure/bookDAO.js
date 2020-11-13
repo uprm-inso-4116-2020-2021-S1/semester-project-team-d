@@ -66,27 +66,16 @@ async function getFromRandomGenres(){
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let genreList, books,query = "SELECT genre FROM public.book OFFSET floor(random() * (SELECT COUNT(*) FROM public.book))";
+    let genre_list = { 
+            horror: getByGenre("horror"), 
+            romance: getByGenre("romance"), 
+            comedy: getByGenre("comedy"), 
 
-    // Execute query and return result.
-    return conn.query(query)
-        .then(result => {
-            genreList = result.rows;
-        })
-        .catch(error => {
-            console.log(err);
-        })
-        .then(() => {
-            // Close connection and return result.
-            conn.end();
+        }
 
-            for(var i = 0; i < genreList.length; i++) {
-                // var obj = depList[i];
-                books.push(getByGenre(genreList[i].title, 'title'));
-            }
-            return genreList;
-            // return result;
-        });
+        // query = "SELECT genre FROM public.book OFFSET floor(random() * (SELECT COUNT(*) FROM public.book))";
+
+    return genre_list;
 }
 
 async function getFromRandomFaculties(){
@@ -152,12 +141,12 @@ async function getByGenre(genre){
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let books,query = `SELECT * FROM public.book WHERE genre = '${genre}'`;
+    let books, query = `SELECT * FROM public.book WHERE genre = '${genre}' OFFSET floor(random() * (SELECT COUNT(*) FROM public.book))`;
 
     // Execute query and return result.
     return conn.query(query)
         .then(result => {
-            books = result
+            books = result;
         })
         .catch(error => {
             console.log(err);
@@ -165,24 +154,27 @@ async function getByGenre(genre){
         .then(() => {
             // Close connection and return result.
             conn.end();
-            return books
-            // return result;
+            console.log(books);
+            return books;
         });
 }
 
+getByGenre("horror");
 
 async function getByDepartment(dept){
     // Establish DB connection.
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let listing, depList, query = `SELECT * FROM public.academic WHERE department = '${dept}'`;
+    // let department_list, query = `SELECT * FROM public.book WHERE department = '${dept}' OFFSET floor(random() * (SELECT COUNT(*) FROM public.book))`;
+    let department_list, query = `SELECT * FROM public.book WHERE department = '${dept}' ORDER BY RANDOM()`;
+
 
     // Execute query and return result.
     return conn.query(query)
         .then(result => {
             //put query results in a list
-            depList = result.rows
+            department_list = result.rows
         })
         .catch(error => {
             console.log(error);
@@ -191,14 +183,8 @@ async function getByDepartment(dept){
             // Close connection.
             conn.end();
 
-            //Iterate through list and find books accordingly, put result in list
-            for(var i = 0; i < depList.length; i++) {
-                var obj = depList[i];
-                listing.push(getBook(obj.title, 'title'));
-            }
-
             //return depList
-            return listing
+            return department_list;
         });
 }
 
@@ -207,12 +193,12 @@ async function getByFaculty(faculty){
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let listing, facList, query = `SELECT * FROM public.academic WHERE faculty = '${faculty}'`;
+    let faculty_list, query = `SELECT * FROM public.book WHERE faculty = '${faculty}' OFFSET floor(random() * (SELECT COUNT(*) FROM public.book))`;
 
     // Execute query and return result.
     return conn.query(query)
         .then(result => {
-            facList = result.rows
+            faculty_list = result.rows
         })
         .catch(error => {
             console.log(error);
@@ -221,16 +207,10 @@ async function getByFaculty(faculty){
             // Close connection and return result.
             conn.end();
             
-            for(var i = 0; i < facList.length; i++) {
-                var obj = facList[i];
-                listing.push(getBook(obj.title, 'title'));
-            }
-            return listing
+            return faculty_list;
             // return facList
-
         });
 }
-
 
 // To use elsewhere (TBD)
 async function getBook(target, criteria){    
@@ -335,9 +315,9 @@ module.exports = {
     addBook
 };
 
-const p = async (myFunc) => {
-    const a = await myFunc
-    console.log(a);
-}
+// const p = async (myFunc) => {
+//     const a = await myFunc
+//     console.log(a);
+// }
 
-p(getByDepartment())
+// p(getByDepartment())
