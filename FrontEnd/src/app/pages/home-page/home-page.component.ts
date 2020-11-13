@@ -32,16 +32,16 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.bookService.getHomeBooks()
-      .subscribe(
+    // this.bookService.getHomeBooks()
+    //   .subscribe(
 
-        response => {
-          for(var index in this.carousels)
-            this.carousels[index].books = response[index];
+    //     response => {
+    //       for(var index in this.carousels)
+    //         this.carousels[index].books = response[index];
           
-        },
-        error => alert(error)
-      );
+    //     },
+    //     error => alert(error)
+    //   );
   }
 
 }

@@ -14,7 +14,8 @@ import { User } from '../../interfaces/User';
 
 export class UserService {
   // Base URL.
-  public url = "https://book-hub-backend.herokuapp.com";
+  public url = "https://book-hub-backend.herokuapp.com/user";
+  // public url = "http://localhost:3000/user";
   
   // HTTP Metadata
   private httpOptions = {

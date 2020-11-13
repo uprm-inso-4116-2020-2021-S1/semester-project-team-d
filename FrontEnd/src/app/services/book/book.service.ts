@@ -52,8 +52,9 @@ export class BookService {
       .pipe(catchError(this._handleError));
   }
 
-  getAccountBooks() {
-
+  getAccountBooks(uuid: string) {
+    return this.http.get<{}>(this.url + '/account/' + uuid)
+      .pipe(catchError(this._handleError));
   }
 
   browseBooks(criteria: string) {

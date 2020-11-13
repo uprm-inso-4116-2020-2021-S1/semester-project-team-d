@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BookService } from 'src/app/services/book/book.service';
 
 @Component({
   selector: 'AccountPage',
@@ -6,16 +7,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./account-page.component.css']
 })
 export class AccountPageComponent implements OnInit {
+  // items = {}
 
   items = {
-    Listings: [],
-    Orders: [],
-    Holdings: []
+    listings: [],
+    orders: [],
+    holdings: []
   }
 
-  constructor() { }
+  constructor(private bookService: BookService) { }
 
   ngOnInit(): void {
+    // this.bookService.getAccountBooks(uuid)
+    //   .subscribe(
+    //     response => {
+    //       this.items = response;
+    //     },
+    //     error => alert(error)
+    //   )
   }
 
   displayBookForm(): void {

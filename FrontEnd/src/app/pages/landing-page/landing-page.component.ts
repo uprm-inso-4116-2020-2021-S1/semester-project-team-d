@@ -19,17 +19,17 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.bookService.getLandingBooks()
-      .subscribe(
+    // this.bookService.getLandingBooks()
+    //   .subscribe(
 
-        response => {
-          this.carousels["Best Sellers"] = response["Best Sellers"];
-          this.carousels["Best Of The Month"] = response["Best Of The Month"];
-        },
+    //     response => {
+    //       this.carousels["Best Sellers"] = response["Best Sellers"];
+    //       this.carousels["Best Of The Month"] = response["Best Of The Month"];
+    //     },
 
-        error => {
-          alert(error);
-        }
-      )
+    //     error => {
+    //       alert(error);
+    //     }
+    //   )
   }
 }
