@@ -62,77 +62,93 @@ async function getBestOfTheMonth(){
 
 // To use at Home Route
 async function getFromRandomGenres(){
-    // Establish DB connection.
-    let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
     let genre_list = { 
-            horror: getByGenre("horror"), 
-            romance: getByGenre("romance"), 
-            comedy: getByGenre("comedy"), 
+            horror: [], 
+            romance: [], 
+            comedy: [], 
+            drama: [],
+            action: [],
+            crime: [],
+            fantasy: [],
+            mystery: []
+    }
 
-        }
-
-        // query = "SELECT genre FROM public.book OFFSET floor(random() * (SELECT COUNT(*) FROM public.book))";
-
+    for (let genre in genre_list) { // Somehow the list is not iterated completely, the data in the last item on the list is not accessed
+        // Generate a random number between [3, 5] 
+        let random = Math.floor(Math.random() * (5 - 3 + 1) + 3),
+            books = await getByGenre(genre);
+       
+        genre_list[genre] = books.slice(0, random);
+        
+    }
     return genre_list;
 }
-
+// getFromRandomGenres();
 async function getFromRandomFaculties(){
-    // Establish DB connection.
-    let conn = DB_Client.establishConnection();
-
     // Declare variables and query string.
-    let facList, faculties, query = "SELECT faculty FROM public.academic OFFSET floor(random() * (SELECT COUNT(*) FROM public.academic))";
+    let faculty_list = {
+        Engineering: [],
+        Administration: [],
+        "Arts and Science": [],
+        "Agricutural Science": []
+    }
+    for (let faculty in faculty_list) { // Somehow the list is not iterated completely, the data in the last item on the list is not accessed
+        // Generate a random number between [3, 5]
+        let random = Math.floor(Math.random() * (5 - 3 + 1) + 3),
+            books = await getByFaculty(faculty);
 
-    // Execute query and return result.
-    return conn.query(query)
-        .then(result => {
-            facList = result.rows;
-        })
-        .catch(error => {
-            console.log(err);
-        })
-        .then(() => {
-            // Close connection and return result.
-            conn.end();
-
-            for(var i = 0; i < facList.length; i++) {
-                // var obj = depList[i];
-                faculties.push(getByFaculty(facList[i].title, 'title'));
-            }
-            return facList;
-            // return result;
-        });
+        faculty_list[faculty] = books.slice(0, random);
+    }
+    return faculty_list;
 }
-
 async function getFromRandomDepartments(){
-    // Establish DB connection.
-    let conn = DB_Client.establishConnection();
-
     // Declare variables and query string.
-    let deptList, dept, query = "SELECT department FROM public.academic OFFSET floor(random() * (SELECT COUNT(*) FROM public.academic))";
-
-    // Execute query and return result.
-    return conn.query(query)
-        .then(result => {
-            deptList = result.rows;
-        })
-        .catch(error => {
-            console.log(err);
-        })
-        .then(() => {
-            // Close connection and return result.
-            conn.end();
-
-            for(var i = 0; i < deptList.length; i++) {
-                // var obj = depList[i];
-                dept.push(getByDepartment(deptList[i].title, 'title'));
-            }
-
-            return deptList;
-            // return result;
-        });
+    let department_list = {
+        "Engineering Sciences and Materials":[],
+        "Chemical Engineering":[],
+        "Computer Science and Engineering":[],
+        "Electrical Computer Engineering": [],
+        "Civil Engineering and Surveying":[],
+        "Mechanical Engineering":[],
+        "Industrial Engineering":[],
+        "Office Administration":[],
+        Finance:[],
+        Accounting:[],
+        Statistics:[],
+        Marketing:[],
+        Entrepreneurship:[],
+        "Information systems":[],
+        Management:[],
+        Chemestry:[],
+        Physics:[],
+        Biology:[],
+        Nursing:[],
+        Geology:[],
+        Mathematics:[],
+        "Social Science":[],
+        Economy:[],
+        "Hispanic Studies":[],
+        Humanities:[],
+        English:[],
+        Psicology:[],
+        "Industrial Biotechnology":[],
+        "Animal Science":[],
+        "Agro Environmental Sciences":[],
+        "Agricultural Economics and Rural Sociology":[],
+        "Agricultural Education":[],
+        "Agricultural Engineering and Biosystems":[]
+    }
+    for (let department in department_list) { // Somehow the list is not iterated completely, the data in the last item on the list is not accessed
+        // Generate a random number between [3, 5]
+        let random = Math.floor(Math.random() * (5 - 3 + 1) + 3),
+            books = await getByDepartment(department);
+        
+        department_list[department] = books.slice(0, random);
+        
+    }
+    return department_list;
 }
 
 // To use at Browse Books Route
@@ -141,12 +157,13 @@ async function getByGenre(genre){
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let books, query = `SELECT * FROM public.book WHERE genre = '${genre}' OFFSET floor(random() * (SELECT COUNT(*) FROM public.book))`;
+    let books, query = `SELECT * FROM public.book WHERE genre = '${genre}' ORDER BY RANDOM()`;
+
 
     // Execute query and return result.
     return conn.query(query)
         .then(result => {
-            books = result;
+            books = result.rows;
         })
         .catch(error => {
             console.log(err);
@@ -154,19 +171,15 @@ async function getByGenre(genre){
         .then(() => {
             // Close connection and return result.
             conn.end();
-            console.log(books);
             return books;
         });
 }
-
-getByGenre("horror");
 
 async function getByDepartment(dept){
     // Establish DB connection.
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    // let department_list, query = `SELECT * FROM public.book WHERE department = '${dept}' OFFSET floor(random() * (SELECT COUNT(*) FROM public.book))`;
     let department_list, query = `SELECT * FROM public.book WHERE department = '${dept}' ORDER BY RANDOM()`;
 
 
@@ -182,7 +195,6 @@ async function getByDepartment(dept){
         .then(() => {
             // Close connection.
             conn.end();
-
             //return depList
             return department_list;
         });
@@ -193,7 +205,7 @@ async function getByFaculty(faculty){
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let faculty_list, query = `SELECT * FROM public.book WHERE faculty = '${faculty}' OFFSET floor(random() * (SELECT COUNT(*) FROM public.book))`;
+    let faculty_list, query = `SELECT * FROM public.book WHERE faculty = '${faculty}' ORDER BY RANDOM()`;
 
     // Execute query and return result.
     return conn.query(query)
@@ -314,10 +326,3 @@ module.exports = {
     getBook,
     addBook
 };
-
-// const p = async (myFunc) => {
-//     const a = await myFunc
-//     console.log(a);
-// }
-
-// p(getByDepartment())
