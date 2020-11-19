@@ -37,11 +37,14 @@ async function getLandingPageBooks(req, res) {
     res.send({test: "passed"});
 }
 
-async function getHomePageBooks(req, res){
-    // Uses getFromRandomGenres(), 
-    // getFromRandomFaculties(), & 
-    // getFromRandomDepartments() from BookDAO.
-    res.send({test: "passed"});
+async function getHomePageBooks(req, res) {
+    // var result = [
+    //     getFromRandomGenres(),
+    //     getFromRandomFaculties(),
+    //     getFromRandomDepartments()
+    // ]
+
+    // res.send(result);
 }
 
 // Need to parse collection parameter from req

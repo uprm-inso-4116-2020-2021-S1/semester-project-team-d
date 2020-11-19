@@ -1,3 +1,4 @@
+const { log } = require('debug');
 const DB_Client = require('./DB-Client')
 
 /*
@@ -61,69 +62,93 @@ async function getBestOfTheMonth(){
 
 // To use at Home Route
 async function getFromRandomGenres(){
-    // Establish DB connection.
-    let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let query = "";
+    let genre_list = { 
+            horror: [], 
+            romance: [], 
+            comedy: [], 
+            drama: [],
+            action: [],
+            crime: [],
+            fantasy: [],
+            mystery: []
+    }
 
-    // Execute query and return result.
-    return conn.query(query)
-        .then(result => {
-
-        })
-        .catch(error => {
-
-        })
-        .then(() => {
-            // Close connection and return result.
-            conn.end();
-            // return result;
-        });
+    for (let genre in genre_list) { // Somehow the list is not iterated completely, the data in the last item on the list is not accessed
+        // Generate a random number between [3, 5] 
+        let random = Math.floor(Math.random() * (5 - 3 + 1) + 3),
+            books = await getByGenre(genre);
+       
+        genre_list[genre] = books.slice(0, random);
+        
+    }
+    return genre_list;
 }
-
+// getFromRandomGenres();
 async function getFromRandomFaculties(){
-    // Establish DB connection.
-    let conn = DB_Client.establishConnection();
-
     // Declare variables and query string.
-    let query = "";
+    let faculty_list = {
+        Engineering: [],
+        Administration: [],
+        "Arts and Science": [],
+        "Agricutural Science": []
+    }
+    for (let faculty in faculty_list) { // Somehow the list is not iterated completely, the data in the last item on the list is not accessed
+        // Generate a random number between [3, 5]
+        let random = Math.floor(Math.random() * (5 - 3 + 1) + 3),
+            books = await getByFaculty(faculty);
 
-    // Execute query and return result.
-    return conn.query(query)
-        .then(result => {
-
-        })
-        .catch(error => {
-
-        })
-        .then(() => {
-            // Close connection and return result.
-            conn.end();
-            // return result;
-        });
+        faculty_list[faculty] = books.slice(0, random);
+    }
+    return faculty_list;
 }
-
 async function getFromRandomDepartments(){
-    // Establish DB connection.
-    let conn = DB_Client.establishConnection();
-
     // Declare variables and query string.
-    let query = "";
-
-    // Execute query and return result.
-    return conn.query(query)
-        .then(result => {
-
-        })
-        .catch(error => {
-
-        })
-        .then(() => {
-            // Close connection and return result.
-            conn.end();
-            // return result;
-        });
+    let department_list = {
+        "Engineering Sciences and Materials":[],
+        "Chemical Engineering":[],
+        "Computer Science and Engineering":[],
+        "Electrical Computer Engineering": [],
+        "Civil Engineering and Surveying":[],
+        "Mechanical Engineering":[],
+        "Industrial Engineering":[],
+        "Office Administration":[],
+        Finance:[],
+        Accounting:[],
+        Statistics:[],
+        Marketing:[],
+        Entrepreneurship:[],
+        "Information systems":[],
+        Management:[],
+        Chemestry:[],
+        Physics:[],
+        Biology:[],
+        Nursing:[],
+        Geology:[],
+        Mathematics:[],
+        "Social Science":[],
+        Economy:[],
+        "Hispanic Studies":[],
+        Humanities:[],
+        English:[],
+        Psicology:[],
+        "Industrial Biotechnology":[],
+        "Animal Science":[],
+        "Agro Environmental Sciences":[],
+        "Agricultural Economics and Rural Sociology":[],
+        "Agricultural Education":[],
+        "Agricultural Engineering and Biosystems":[]
+    }
+    for (let department in department_list) { // Somehow the list is not iterated completely, the data in the last item on the list is not accessed
+        // Generate a random number between [3, 5]
+        let random = Math.floor(Math.random() * (5 - 3 + 1) + 3),
+            books = await getByDepartment(department);
+        
+        department_list[department] = books.slice(0, random);
+        
+    }
+    return department_list;
 }
 
 // To use at Browse Books Route
@@ -132,20 +157,21 @@ async function getByGenre(genre){
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let query = "";
+    let books, query = `SELECT * FROM public.book WHERE genre = '${genre}' ORDER BY RANDOM()`;
+
 
     // Execute query and return result.
     return conn.query(query)
         .then(result => {
-
+            books = result.rows;
         })
         .catch(error => {
-
+            console.log(err);
         })
         .then(() => {
             // Close connection and return result.
             conn.end();
-            // return result;
+            return books;
         });
 }
 
@@ -154,20 +180,23 @@ async function getByDepartment(dept){
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let query = "";
+    let department_list, query = `SELECT * FROM public.book WHERE department = '${dept}' ORDER BY RANDOM()`;
+
 
     // Execute query and return result.
     return conn.query(query)
         .then(result => {
-
+            //put query results in a list
+            department_list = result.rows
         })
         .catch(error => {
-
+            console.log(error);
         })
         .then(() => {
-            // Close connection and return result.
+            // Close connection.
             conn.end();
-            // return result;
+            //return depList
+            return department_list;
         });
 }
 
@@ -176,20 +205,22 @@ async function getByFaculty(faculty){
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let query = "";
+    let faculty_list, query = `SELECT * FROM public.book WHERE faculty = '${faculty}' ORDER BY RANDOM()`;
 
     // Execute query and return result.
     return conn.query(query)
         .then(result => {
-
+            faculty_list = result.rows
         })
         .catch(error => {
-
+            console.log(error);
         })
         .then(() => {
             // Close connection and return result.
             conn.end();
-            // return result;
+            
+            return faculty_list;
+            // return facList
         });
 }
 
@@ -231,7 +262,7 @@ async function addBook(book) {
             "password",
             "email",
             "username",
-            "phone") VALUES (
+            "phone") depList (
             '${generateID()}',
             '${user.first_name}',
             '${user.last_name}',
