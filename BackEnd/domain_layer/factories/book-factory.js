@@ -34,7 +34,8 @@ function generateID(type) {
     // Generate a random number between [1000, 9999]
     lower = 1000, upper = 9999;
 
-    return type + (Math.floor((Math.random() * (upper-lower + 1) + lower)));
+    // return type + (Math.floor((Math.random() * (upper-lower + 1) + lower)));
+    return (Math.floor((Math.random() * (upper-lower + 1) + lower)));
 }
 
 module.exports = {

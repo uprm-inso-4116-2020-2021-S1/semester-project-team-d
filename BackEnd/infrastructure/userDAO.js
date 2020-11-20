@@ -177,22 +177,35 @@ async function addBooktoListings(bookID, userID) {
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let query = "";
+    let listings,
+        query = `SELECT "listings" FROM public.user WHERE "userID" = '${userID}'`;
 
     // Execute query and return result.
-    return conn.query(query)
+    await conn.query(query)
         .then(result => {
-
+            listings = result.rows[0].listings;
+            listings.push(bookID);
         })
         .catch(error => {
-
+            console.log(error);
+        })
+    
+    query = `UPDATE public.user SET "listings"='{${listings}}' WHERE "userID" = '${userID}'`;
+    await conn.query(query)
+        .then(() => {
+            console.log("success");
+        })
+        .catch(err => {
+            console.log(err);
         })
         .then(() => {
             // Close connection and return result.
             conn.end();
-            // return result;
+            // return ;
         });
 }
+
+addBooktoListings("2458", 145);
 
 module.exports = {
     getUser,
