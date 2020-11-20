@@ -20,7 +20,8 @@
     <section id="carousels">
         <Carousel 
             *ngFor="let carousel of carousels | keyvalue" 
-            [title]="carousel.key">
+            [title]="carousel.key"
+            [items]="carousel.value">
         </Carousel>
     </section>
 

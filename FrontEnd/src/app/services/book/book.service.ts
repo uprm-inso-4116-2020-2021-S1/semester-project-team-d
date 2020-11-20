@@ -9,8 +9,8 @@ import { catchError } from 'rxjs/operators';
 
 export class BookService {
   // Base URL.
-  public url = "https://book-hub-backend.herokuapp.com";
-  
+  // public url = "https://book-hub-backend.herokuapp.com";
+  public url = "http://localhost:3000/books";
   // HTTP Metadata
   private httpOptions = {
     headers: new HttpHeaders({
@@ -43,22 +43,27 @@ export class BookService {
   }
 
   getLandingBooks() {
-    return this.http.get<{}>(this.url + '/')
+    return this.http.get(this.url + '/landing')
       .pipe(catchError(this._handleError));
   }
 
   getHomeBooks() {
-    return this.http.get<[]>(this.url + '/home')
+    return this.http.get(this.url + '/home')
       .pipe(catchError(this._handleError));
   }
 
   getAccountBooks(uuid: string) {
-    return this.http.get<{}>(this.url + '/account/' + uuid)
+    return this.http.get(this.url + '/account/' + uuid)
       .pipe(catchError(this._handleError));
   }
 
   browseBooks(criteria: string) {
-    return this.http.get<{}>(this.url + '/browse/' + criteria)
+    return this.http.get(this.url + `/browse?collection=${criteria}`)
+      .pipe(catchError(this._handleError));
+  }
+
+  postBook(book: {}) {
+    return this.http.post(this.url + '/add', book, this.httpOptions)
       .pipe(catchError(this._handleError));
   }
 }

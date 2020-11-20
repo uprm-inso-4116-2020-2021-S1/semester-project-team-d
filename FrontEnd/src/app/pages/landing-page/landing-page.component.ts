@@ -10,8 +10,8 @@ export class LandingPageComponent implements OnInit {
 
   // should be paired with their list of books
   carousels = {
+    "Best Of The Month": [],
     "Best Sellers": [],
-    "Best Of The Month": []
   }
 
   constructor(private bookService: BookService) { 
@@ -19,17 +19,18 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // this.bookService.getLandingBooks()
-    //   .subscribe(
+    this.bookService.getLandingBooks()
+      .subscribe(
 
-    //     response => {
-    //       this.carousels["Best Sellers"] = response["Best Sellers"];
-    //       this.carousels["Best Of The Month"] = response["Best Of The Month"];
-    //     },
+        response => {
+          this.carousels["Best Sellers"] = response["best_sellers"];
+          this.carousels["Best Of The Month"] = response["best_of_month"];
+        },
 
-    //     error => {
-    //       alert(error);
-    //     }
-    //   )
+        error => {
+          alert(error);
+        }
+      )
+      
   }
 }

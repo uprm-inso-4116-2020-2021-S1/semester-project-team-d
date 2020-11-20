@@ -3,8 +3,8 @@
 
     <div id="carousel">
         <BookCard class="card"
-            *ngFor="let book of books" 
-                [cover]="book.cover" 
+            *ngFor="let book of items" 
+                [cover]=cover 
                 [title]="book.title" 
                 [author]="book.author">
         </BookCard>

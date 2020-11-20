@@ -12,7 +12,8 @@
             <a [routerLink]="['/browse', carousel.link]">See All</a>
             
             <Carousel 
-                [title]="carousel.type">
+                [title]="carousel.type"
+                [items]="carousel.books">
             </Carousel>
         </div>
     </section>

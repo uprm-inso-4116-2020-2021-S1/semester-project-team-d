@@ -11,27 +11,20 @@ import { BookService } from 'src/app/services/book/book.service';
 export class BrowseBooksPageComponent implements OnInit, OnDestroy {
   private sub: any;
   type: string;
-  // items = {};
-
-  // items is fetched from Backend.
-  items = {
-    Horror: [],
-    Romance: [],
-    Action: []
-  };
+  items = {};
 
   constructor(private route: ActivatedRoute, private bookService: BookService) { }
 
   ngOnInit(): void {
     this.sub = this.route.params.subscribe(params => this.type = params['type'])
 
-    // this.bookService.browseBooks(this.type)
-    //   .subscribe(
-    //     response => {
-    //       this.items = response;
-    //     },
-    //     error => alert(error)
-    //   )
+    this.bookService.browseBooks(this.type)
+      .subscribe(
+        response => {
+          this.items = response;
+        },
+        error => alert(error)
+      )
   }
 
   ngOnDestroy(): void {

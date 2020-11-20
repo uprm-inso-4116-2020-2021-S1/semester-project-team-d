@@ -4,6 +4,7 @@
     <Carousel
         *ngFor="let item of items | keyvalue"
         [title]="item.key"
+        [items]="item.value"
         class="carousel">
     </Carousel>
 
