@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserSessionService } from 'src/app/services/user-session/user-session.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -10,7 +11,10 @@ import { UserService } from 'src/app/services/user/user.service';
 
 export class LoginPageComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(
+    private userService: UserService, 
+    private userSession: UserSessionService,
+    private router: Router) { }
 
   ngOnInit(): void {
 
@@ -23,7 +27,7 @@ export class LoginPageComponent implements OnInit {
         .subscribe(
           // Get exit_code from response.
           response => {
-            code = response.exit_code;
+            code = response.uid;
           },
 
           // Handle error
@@ -46,14 +50,8 @@ export class LoginPageComponent implements OnInit {
     return user;
   }
 
-  check(code: number) {
+  check(code) {
     switch(code) {
-      case 0:
-          alert('Thank you for logging in!')
-          // Take user to home screen.
-          this.router.navigate(["/home"]);
-          break;
-
       case -1:
           alert('Username does not exist in database.')
           break;
@@ -61,6 +59,14 @@ export class LoginPageComponent implements OnInit {
       case -2:
           alert('Incorrect Password.')
           break;
+
+      default:
+        alert('Thank you for logging in!')
+        // Open session.
+        this.userSession.openSession(code);
+        // Take user to home screen.
+        this.router.navigate(["/home"]);
+        break;
     }
   }
 } 

@@ -26,7 +26,7 @@
 
     <section id="carousels">
         <!-- To pass items, [items]="item.value" -->
-        <Carousel *ngFor="let item of items | keyvalue" [title]="item.key" class="carousel"></Carousel>
+        <Carousel *ngFor="let item of items | keyvalue" [title]="item.key" [items]="item.value" class="carousel"></Carousel>
     </section>
 
     <Footer></Footer>

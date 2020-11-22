@@ -14,8 +14,8 @@ import { User } from '../../interfaces/User';
 
 export class UserService {
   // Base URL.
-  public url = "https://book-hub-backend.herokuapp.com/user";
-  // public url = "http://localhost:3000/user";
+  // public url = "https://book-hub-backend.herokuapp.com/user";
+  public url = "http://localhost:3000/user";
   
   // HTTP Metadata
   private httpOptions = {
@@ -63,5 +63,10 @@ export class UserService {
     return this.http.post<ResponseCode>(this.url + '/register', user, this.httpOptions)
       .pipe(catchError(this._handleError))
   
+  }
+
+  getAccountBooks(uuid: string) {
+    return this.http.get(this.url + `/account?id=${uuid}`)
+      .pipe(catchError(this._handleError));
   }
 }

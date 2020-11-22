@@ -25,7 +25,7 @@ export class RegisterPageComponent implements OnInit {
         .subscribe(
           // Get exit_code from response
           response => {
-            code = response.exit_code;
+            code = response.uid;
           },
           
           // Error handler

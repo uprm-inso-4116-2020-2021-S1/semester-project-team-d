@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BookService } from 'src/app/services/book/book.service';
+import { UserSessionService } from 'src/app/services/user-session/user-session.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'AccountPage',
@@ -7,24 +8,18 @@ import { BookService } from 'src/app/services/book/book.service';
   styleUrls: ['./account-page.component.css']
 })
 export class AccountPageComponent implements OnInit {
-  // items = {}
+  items = {}
 
-  items = {
-    listings: [],
-    orders: [],
-    holdings: []
-  }
-
-  constructor(private bookService: BookService) { }
+  constructor(private userService: UserService, private userSession: UserSessionService) { }
 
   ngOnInit(): void {
-    // this.bookService.getAccountBooks(uuid)
-    //   .subscribe(
-    //     response => {
-    //       this.items = response;
-    //     },
-    //     error => alert(error)
-    //   )
+    this.userService.getAccountBooks(this.userSession.getUUID())
+      .subscribe(
+        response => {
+          this.items = response;
+        },
+        error => alert(error)
+      )
   }
 
   displayBookForm(): void {

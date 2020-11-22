@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from 'src/app/services/book/book.service';
+import { UserSessionService } from 'src/app/services/user-session/user-session.service';
 
 @Component({
   selector: 'HomePage',
@@ -27,7 +28,7 @@ export class HomePageComponent implements OnInit {
     }
   ]
 
-  constructor(private bookService: BookService) { }
+  constructor(private bookService: BookService, private userSession: UserSessionService) { }
 
   ngOnInit(): void {
 
@@ -43,6 +44,7 @@ export class HomePageComponent implements OnInit {
 
         error => alert(error)
       );
+
   }
 
 }
