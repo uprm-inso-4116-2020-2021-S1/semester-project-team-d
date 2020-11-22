@@ -36,6 +36,7 @@ async function addBook(req, res) {
     await bookDAO.addBook(book);
     await userDAO.addBooktoListings(book.bookID, uuid)
 
+    // console.log("done")
     res.send({test: book});
 }
 

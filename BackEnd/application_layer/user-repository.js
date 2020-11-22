@@ -2,6 +2,7 @@ const UserFactory  = require('../domain_layer/factories/user-factory');
 
 // Must use the 'await' keyword to correctly use these functions.
 const { getOrders } = require('../infrastructure/ordersDAO');
+const userDAO = require('../infrastructure/userDAO');
 const { getUser, registerUser, updateInfo, getListings, getHoldings }  = require('../infrastructure/userDAO')
 
 // Asynchronous wrapper functions.
@@ -30,17 +31,17 @@ async function login(req, res) {
     
   // If 'user' is null then res returns -1. (User doesn't exist)
   if(!user){
-    res.send({exit_code: -1})
+    res.send({uuid: -1})
     return
   }
 
   // If user[password] == req[password] then res returns 0. (Passwords match)
   if(user["password"] === login["password"])
-    res.send({exit_code: 0});
+    res.send({uuid: user["userID"]});
 
   // Else then res returns -2. (Unsuccesful validation)
   else
-    res.send({exit_code: -2})
+    res.send({uuid: -2})
 }
 
 async function register(req, res) {
@@ -52,8 +53,16 @@ async function register(req, res) {
 
 // Returns users orders, listings, and holdings.
 async function getItems(req, res) {
+    let uuid = req.query.id;
+    
     // Uses getOrders(userID), getHoldings(userID), & getListings(userID)
-    res.send({passed: "test"});
+    let books = {
+      listings: await userDAO.getListings(uuid),
+      orders: await userDAO.getOrders(uuid),
+      holdings: await userDAO.getHoldings(uuid)
+    }
+    
+    res.send(books);
 }
 
 async function updateUserInfo(req, res) {

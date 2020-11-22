@@ -1,5 +1,6 @@
 const DB_Client = require('./DB-Client')
-const { getBook } = require('./bookDAO')
+const { getBook } = require('./bookDAO');
+const e = require('express');
 
 async function getUser(credential, type){    
     let conn = DB_Client.establishConnection();
@@ -113,62 +114,119 @@ async function updateInfo() {
     NOTE: WILL GIVE ERROR AS LONG AS LISTINGS ARE NULL. 
     TEST ONCE VALUES ARE INSERTED INTO LISTINGS
 */
-async function getListings() {
+async function getListings(uuid) {
     // Establish DB connection.
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let values, listings, query = `SELECT listings FROM public.user`;
+    let values, listings, query = `SELECT listings FROM public.user WHERE "userID" = '${uuid}'`;
     
     // Execute query and return result.
-    return conn.query(query)
+    await conn.query(query)
         .then(result => {
-            
             //put query results in a list
-            values = result.rows
+            values = result.rows[0].listings
         })
         .catch(error => {
             console.log(error);
         })
+
+    query = `SELECT * FROM public.book WHERE "bookID" IN (${values})`;
+    
+    if(values.length == 0)
+        return []
+
+    else {
+        return conn.query(query)
+        .then(result => {
+            listings = result.rows;
+        })
+        .catch(error => {
+            console.log(error)
+        })
         .then(() => {
             // Close connection 
             conn.end();
-            
-            //Iterate through list and find books accordingly, put result in list
-            for(var i = 0; i < values.length; i++) {
-                var obj = values[i];
-                listings.push(getBook(obj.listings.title));
-            }           
-            
-            //return list
+
+            // return result;            
             return listings;
-            // return result;
         });
+    }
 }
 
 // Fetch list of BookIDs from the 'holdings' property of userID
 // Fetch every book in that list with getBook() from bookDAO
 // Return list of books.
-async function getHoldings(userID) {
+async function getHoldings(uuid) {
     // Establish DB connection.
     let conn = DB_Client.establishConnection();
 
     // Declare variables and query string.
-    let query = "";
+    let values, holdings, query = `SELECT holdings FROM public.user WHERE "userID" = '${uuid}'`;
 
-    // Execute query and return result.
-    return conn.query(query)
+    await conn.query(query)
         .then(result => {
-
+            values = result.rows[0].holdings;
         })
         .catch(error => {
+            console.log(error)
+        })
 
+    query = `SELECT * FROM public.book WHERE "bookID" IN (${values})`;
+ 
+    // Execute query and return result.
+    if (values.length == 0)
+        return [];
+
+    else {
+        return conn.query(query)
+        .then(result => {
+            holdings = result.rows;
+        })
+        .catch(error => {
+            console.log(error);
+        })
+        .then(() => {
+            conn.end();
+            return holdings;
+        })
+    }
+}
+
+async function getOrders(uuid) {
+    // Establish DB connection.
+    let conn = DB_Client.establishConnection();
+
+    // Declare variables and query string.
+    let values, orders, query = `SELECT orders FROM public.user WHERE "userID" = '${uuid}'`;
+
+    await conn.query(query)
+        .then(result => {
+            values = result.rows[0].orders
+        })
+        .catch(error => {
+            console.log(error);
+        })
+
+    query = `SELECT * FROM public.order WHERE "orderID" IN (${values})`
+    if (values.length == 0)
+        return [];
+
+    else {
+        // Execute query and return result.
+        return conn.query(query)
+        .then(result => {
+            orders = result.rows;
+        })
+        .catch(error => {
+            console.log(error)
         })
         .then(() => {
             // Close connection and return result.
             conn.end();
-            // return result;
+            return orders;
         });
+    }
 }
 
 // Add bookID to the list in 'listings' property of userID
@@ -193,7 +251,7 @@ async function addBooktoListings(bookID, userID) {
     query = `UPDATE public.user SET "listings"='{${listings}}' WHERE "userID" = '${userID}'`;
     await conn.query(query)
         .then(() => {
-            console.log("success");
+            // console.log("success");
         })
         .catch(err => {
             console.log(err);
@@ -205,13 +263,12 @@ async function addBooktoListings(bookID, userID) {
         });
 }
 
-addBooktoListings("2458", 145);
-
 module.exports = {
     getUser,
     registerUser,
     updateInfo,
     getListings,
     getHoldings,
+    getOrders,
     addBooktoListings
 };
