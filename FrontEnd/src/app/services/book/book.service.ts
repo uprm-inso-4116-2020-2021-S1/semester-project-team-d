@@ -9,8 +9,8 @@ import { catchError } from 'rxjs/operators';
 
 export class BookService {
   // Base URL.
-  // public url = "https://book-hub-backend.herokuapp.com";
-  public url = "http://localhost:3000/books";
+  public url = "https://book-hub-backend.herokuapp.com";
+  // public url = "http://localhost:3000/books";
   // HTTP Metadata
   private httpOptions = {
     headers: new HttpHeaders({
