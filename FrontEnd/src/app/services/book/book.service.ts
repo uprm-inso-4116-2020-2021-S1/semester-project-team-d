@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 
 export class BookService {
   // Base URL.
-  public url = "https://book-hub-backend.herokuapp.com";
+  public url = "https://book-hub-backend.herokuapp.com/books";
   // public url = "http://localhost:3000/books";
   // HTTP Metadata
   private httpOptions = {
