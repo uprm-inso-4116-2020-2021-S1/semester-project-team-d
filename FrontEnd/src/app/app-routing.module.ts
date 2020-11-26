@@ -6,6 +6,7 @@ import { RegisterPageComponent } from './pages/register-page/register-page.compo
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { AccountPageComponent } from './pages/account-page/account-page.component';
 import { BrowseBooksPageComponent } from './pages/browse-books-page/browse-books-page.component';
+import { BookPageComponent } from './pages/book-page/book-page/book-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -15,6 +16,8 @@ const routes: Routes = [
   { path: 'home', component: HomePageComponent },
   { path: 'account', component: AccountPageComponent },
   { path: 'browse/:type', component: BrowseBooksPageComponent},
+
+  { path: 'book/:id', component: BookPageComponent},
 
   { path: 'landing', redirectTo: '', pathMatch: 'full'}
 ];

@@ -16,6 +16,7 @@ import { BookFormComponent } from './components/book-form/book-form.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AccountPageComponent } from './pages/account-page/account-page.component';
 import { BrowseBooksPageComponent } from './pages/browse-books-page/browse-books-page.component';
+import { BookPageComponent } from './pages/book-page/book-page/book-page.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { BrowseBooksPageComponent } from './pages/browse-books-page/browse-books
     BookFormComponent,
     FooterComponent,
     AccountPageComponent,
-    BrowseBooksPageComponent
+    BrowseBooksPageComponent,
+    BookPageComponent
   ],
   imports: [
     BrowserModule,

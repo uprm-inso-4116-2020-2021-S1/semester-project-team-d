@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'BookCard',
@@ -11,10 +12,14 @@ export class BookCardComponent implements OnInit {
   @Input() cover: string;
   @Input() title: string;
   @Input() author: string;
+  @Input() id: string;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    document.getElementById("card").addEventListener("click", () => {
+      this.router.navigate(["/book", this.id]);
+    })
   }
 
 }
