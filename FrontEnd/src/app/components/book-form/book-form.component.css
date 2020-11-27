@@ -2,6 +2,8 @@
     width: 100%;
     height: fit-content;
 
+    /* max-width: 750px; */
+
     background-color:  #BE7736;
     border: 2px solid #341604;
     border-radius: calc(2px + 2vmin);

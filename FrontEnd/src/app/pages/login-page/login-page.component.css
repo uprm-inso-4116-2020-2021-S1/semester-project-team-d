@@ -105,6 +105,10 @@ a {
         width: 35%;
     }
 
+    #background-container {
+        height: 60vh;
+    }
+
     .field {
         margin: 3%;
     }

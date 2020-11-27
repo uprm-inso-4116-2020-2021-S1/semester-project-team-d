@@ -4,7 +4,7 @@
 
 #carousel {
     width: 90%;
-    height: fit-content;
+    height: calc(250px + 2vmin);
 
     background-color: #BE773690;
     border: 2px solid #341604;
