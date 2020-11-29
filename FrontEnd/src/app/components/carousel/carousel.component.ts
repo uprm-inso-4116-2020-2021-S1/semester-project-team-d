@@ -5,6 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.css']
 })
+
 export class CarouselComponent implements OnInit {
 
   @Input() title: string;
@@ -17,5 +18,4 @@ export class CarouselComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
 }

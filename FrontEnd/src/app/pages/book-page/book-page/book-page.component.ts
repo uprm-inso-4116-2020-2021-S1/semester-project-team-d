@@ -14,8 +14,6 @@ export class BookPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => this.bookID = params['id'])
-
-    alert(this.bookID)
   }
 
 }
