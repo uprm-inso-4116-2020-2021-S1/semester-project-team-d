@@ -70,9 +70,19 @@ async function updateUserInfo(req, res) {
     res.send({passed: "test"});
 }
 
+async function requestBook(req, res) {
+  bookID = req.body["bookID"]
+  uuid = req.body["uuid"]
+
+  await userDAO.addBooktoOrders(bookID, uuid);
+
+  res.send("Book Added Successfully!");
+}
+
 module.exports = {
     login,
     register,
     getItems,
-    updateUserInfo
+    updateUserInfo,
+    requestBook
 }

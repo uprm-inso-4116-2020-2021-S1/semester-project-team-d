@@ -33,11 +33,11 @@ async function addBook(req, res) {
 
     let book = BookFactory.createBook(req.body);
 
-    await bookDAO.addBook(book);
+    let code = await bookDAO.addBook(book);
     await userDAO.addBooktoListings(book.bookID, uuid)
 
     // console.log("done")
-    res.send({test: book});
+    res.send({code: code});
 }
 
 async function getLandingPageBooks(req, res) {

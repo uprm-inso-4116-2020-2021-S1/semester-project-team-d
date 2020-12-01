@@ -1,6 +1,4 @@
 const DB_Client = require('./DB-Client')
-const { getBook } = require('./bookDAO');
-const e = require('express');
 
 async function getUser(credential, type){    
     let conn = DB_Client.establishConnection();
@@ -133,25 +131,21 @@ async function getListings(uuid) {
 
     query = `SELECT * FROM public.book WHERE "bookID" IN (${values})`;
     
-    if(values.length == 0)
-        return []
+    return conn.query(query)
+    .then(result => {
+        listings = result.rows;
+    })
+    .catch(error => {
+        console.log(error)
+    })
+    .then(() => {
+        // Close connection 
+        conn.end();
 
-    else {
-        return conn.query(query)
-        .then(result => {
-            listings = result.rows;
-        })
-        .catch(error => {
-            console.log(error)
-        })
-        .then(() => {
-            // Close connection 
-            conn.end();
-
-            // return result;            
-            return listings;
-        });
-    }
+        // return result;            
+        return listings;
+    });
+    
 }
 
 // Fetch list of BookIDs from the 'holdings' property of userID
@@ -208,25 +202,22 @@ async function getOrders(uuid) {
             console.log(error);
         })
 
-    query = `SELECT * FROM public.order WHERE "orderID" IN (${values})`
-    if (values.length == 0)
-        return [];
+    query = `SELECT * FROM public.book WHERE "bookID" IN (${values})`
 
-    else {
-        // Execute query and return result.
-        return conn.query(query)
-        .then(result => {
-            orders = result.rows;
-        })
-        .catch(error => {
-            console.log(error)
-        })
-        .then(() => {
-            // Close connection and return result.
-            conn.end();
-            return orders;
-        });
-    }
+    // Execute query and return result.
+    return conn.query(query)
+    .then(result => {
+        orders = result.rows;
+    })
+    .catch(error => {
+        console.log(error)
+    })
+    .then(() => {
+        // Close connection and return result.
+        conn.end();
+        return orders;
+    });
+
 }
 
 // Add bookID to the list in 'listings' property of userID
@@ -249,7 +240,7 @@ async function addBooktoListings(bookID, userID) {
         })
     
     query = `UPDATE public.user SET "listings"='{${listings}}' WHERE "userID" = '${userID}'`;
-    await conn.query(query)
+    return conn.query(query)
         .then(() => {
             // console.log("success");
         })
@@ -259,7 +250,39 @@ async function addBooktoListings(bookID, userID) {
         .then(() => {
             // Close connection and return result.
             conn.end();
-            // return ;
+        });
+}
+
+// Add bookID to the list in 'listings' property of userID
+async function addBooktoOrders(bookID, userID) {
+    // Establish DB connection.
+    let conn = DB_Client.establishConnection();
+
+    // Declare variables and query string.
+    let orders,
+        query = `SELECT "orders" FROM public.user WHERE "userID" = '${userID}'`;
+
+    // Execute query and return result.
+    await conn.query(query)
+        .then(result => {
+            orders = result.rows[0].orders;
+            orders.push(bookID);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    
+    query = `UPDATE public.user SET "orders"='{${orders}}' WHERE "userID" = '${userID}'`;
+    return conn.query(query)
+        .then(() => {
+            // console.log("success");
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .then(() => {
+            // Close connection and return result.
+            conn.end();
         });
 }
 
@@ -270,5 +293,6 @@ module.exports = {
     getListings,
     getHoldings,
     getOrders,
-    addBooktoListings
+    addBooktoListings,
+    addBooktoOrders
 };
