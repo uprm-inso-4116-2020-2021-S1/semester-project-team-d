@@ -19,6 +19,10 @@ export class BookCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  displayText() {
+    document.getElementById("text-container").style.display = "block"
+  }
+
   goToBookPage() {
     this.router.navigate(['/book', this.id])
   }
