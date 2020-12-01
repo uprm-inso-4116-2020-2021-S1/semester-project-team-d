@@ -36,8 +36,9 @@ async function login(req, res) {
   }
 
   // If user[password] == req[password] then res returns 0. (Passwords match)
-  if(user["password"] === login["password"])
+  if(user["password"] === login["password"]){
     res.send({uuid: user["userID"]});
+  }
 
   // Else then res returns -2. (Unsuccesful validation)
   else

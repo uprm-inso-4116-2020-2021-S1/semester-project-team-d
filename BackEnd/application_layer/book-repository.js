@@ -22,8 +22,9 @@ async function getSpecificBook(req, res) {
     res.send(book);
 }
 
-async function searchForBook(req, res) {
-    res.send({test: "passed"});
+async function getBook(req, res) {
+    let book = await bookDAO.getBook("bookID", req.query.bookID)
+    res.send(book);
 }
 
 // Receives book info & UUID as request body.
@@ -83,7 +84,7 @@ async function getBookCollections(req, res) {
 
 module.exports = {
     getSpecificBook,
-    searchForBook,
+    getBook,
     addBook,
     getLandingPageBooks,
     getHomePageBooks,
