@@ -17,6 +17,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AccountPageComponent } from './pages/account-page/account-page.component';
 import { BrowseBooksPageComponent } from './pages/browse-books-page/browse-books-page.component';
 import { BookPageComponent } from './pages/book-page/book-page/book-page.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { BookPageComponent } from './pages/book-page/book-page/book-page.compone
     AppRoutingModule
   ],
   providers: [
-    UserService
+    UserService,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

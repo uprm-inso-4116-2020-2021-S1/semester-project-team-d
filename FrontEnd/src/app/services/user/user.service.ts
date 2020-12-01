@@ -49,24 +49,29 @@ export class UserService {
   }
 
   // Should accept a User object containing credential and password.
-  validate(user: User): Observable<ResponseCode> {
+  validate(user: User) {
     
     // Should send a POST request with user object as body and httpOptions.
-    return this.http.post<ResponseCode>(this.url + '/login', user, this.httpOptions)
+    return this.http.post(this.url + '/login', user, this.httpOptions)
       .pipe(catchError(this._handleError)) 
   
   }
 
   // Accepts a user object as a parameter.
-  register(user: User): Observable<ResponseCode>{
+  register(user: User){
 
-    return this.http.post<ResponseCode>(this.url + '/register', user, this.httpOptions)
+    return this.http.post(this.url + '/register', user, this.httpOptions)
       .pipe(catchError(this._handleError))
   
   }
 
   getAccountBooks(uuid: string) {
     return this.http.get(this.url + `/account?id=${uuid}`)
+      .pipe(catchError(this._handleError));
+  }
+
+  requestBook(request: Object) {
+    return this.http.post(this.url + "/request", request, this.httpOptions)
       .pipe(catchError(this._handleError));
   }
 }

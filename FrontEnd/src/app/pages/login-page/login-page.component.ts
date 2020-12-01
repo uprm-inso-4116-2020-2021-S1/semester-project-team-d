@@ -16,28 +16,7 @@ export class LoginPageComponent implements OnInit {
     private userSession: UserSessionService,
     private router: Router) { }
 
-  ngOnInit(): void {
-
-    // Event handler for login button.
-    document.getElementById('login-btn').addEventListener('click', () => {
-      let user = this.getCredentials(),
-          code = null;
-
-      this.userService.validate(user)
-        .subscribe(
-          // Get exit_code from response.
-          response => {
-            code = response.uid;
-          },
-
-          // Handle error
-          error => alert(error),
-        
-          // On observable completion
-          () => this.check(code)
-        )
-    } );
-  }
+  ngOnInit(): void { }
 
   getCredentials() {
 
@@ -50,23 +29,42 @@ export class LoginPageComponent implements OnInit {
     return user;
   }
 
-  check(code) {
-    switch(code) {
-      case -1:
-          alert('Username does not exist in database.')
-          break;
+  validate() {
+    let user = this.getCredentials(),
+    code = null;
 
-      case -2:
-          alert('Incorrect Password.')
-          break;
+    this.userService.validate(user)
+      .subscribe(
+        // Get exit_code from response.
+        response => {
+          code = response["uuid"];
+        },
 
-      default:
-        alert('Thank you for logging in!')
-        // Open session.
-        this.userSession.openSession(code);
-        // Take user to home screen.
-        this.router.navigate(["/home"]);
-        break;
-    }
+        // Handle error
+        error => alert(error),
+      
+        // On observable completion
+        () => {
+          switch(code) {
+            case -1:
+                alert('Username does not exist in database.')
+                break;
+      
+            case -2:
+                alert('Incorrect Password.')
+                break;
+      
+            default:
+              alert('Thank you for logging in!')
+
+              // Open session.
+              this.userSession.openSession(code);
+      
+              // Take user to home screen.
+              this.router.navigate(["/home"]);
+              break;
+          }
+        }
+      )
   }
 } 

@@ -3,11 +3,11 @@
         <img src="assets/harry_potter_book.jpg">
     </div> 
 
-    <h2 class="text">Book Title</h2>
-    <span class="text">Book Author</span>
-    <p class="text">Book Type</p>
+    <h2 class="text">{{book["title"]}}</h2>
+    <span class="text">{{book["author"]}}</span>
+    <p class="text">{{book["type"]}}</p>
 
-    <button class="button">Request Book</button>
+    <button class="button" (click)=submitRequest()>Request Book</button>
     
 </div>
 

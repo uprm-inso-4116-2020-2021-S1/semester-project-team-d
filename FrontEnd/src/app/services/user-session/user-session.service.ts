@@ -1,36 +1,29 @@
 import { Injectable } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserSessionService {
-  private authenticated: boolean;
-  private uuid: string;
 
-  constructor() { 
-    this.authenticated = true;
-    this.uuid = "589";
-  }
+  constructor(
+    private cookieService: CookieService
+  ) { }
 
-  isAuthenticated(): Boolean {
-    return this.authenticated;
+  isAuthenticated(): boolean {
+    return this.cookieService.getAll()["authenticated"] == "true"
   }
 
   getUUID() {
-    if (!this.isAuthenticated())
-      alert("Must be logged in first.")
-    
-    else
-      return this.uuid;
+    return this.cookieService.getAll()["uuid"];
   }
 
   openSession(uid: string) {
-    this.uuid = uid;
-    this.authenticated = true;
+    this.cookieService.set("uuid", uid)
+    this.cookieService.set("authenticated", "true")
   }
 
   closeSession() {
-    this.uuid = null;
-    this.authenticated = false;
+    this.cookieService.deleteAll()
   }
 }

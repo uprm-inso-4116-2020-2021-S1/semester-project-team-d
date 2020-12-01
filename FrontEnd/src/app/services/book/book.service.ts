@@ -11,6 +11,7 @@ export class BookService {
   // Base URL.
   public url = "https://book-hub-backend.herokuapp.com/books";
   // public url = "http://localhost:3000/books";
+
   // HTTP Metadata
   private httpOptions = {
     headers: new HttpHeaders({
@@ -60,5 +61,9 @@ export class BookService {
   postBook(book: {}) {
     return this.http.post(this.url + '/add', book, this.httpOptions)
       .pipe(catchError(this._handleError));
+  }
+
+  getBook(bookID: string) {
+    return this.http.get(this.url + `/get?bookID=${bookID}`)
   }
 }
